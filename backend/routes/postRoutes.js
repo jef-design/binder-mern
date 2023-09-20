@@ -7,7 +7,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-router.use(authMiddleware)
+//router.use(authMiddleware)
 
 
 router.post('/create', upload.single('image'), createPost)
