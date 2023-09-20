@@ -11,7 +11,7 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
     const queryClient = useQueryClient();
     const {mutate} = useMutation({
         mutationKey: ["deletepost"],
-        mutationFn: postID => axios.delete(`/api/binder/post/${postID}`).then(res => res.data),
+        mutationFn: postID => axios.delete(`https://binder-api.onrender.com/api/binder/post/${postID}`).then(res => res.data),
         onSuccess: postID => {
             queryClient.invalidateQueries("getpost","userpost", userID);
             console.log(postID);
@@ -25,7 +25,7 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
     //like post
     const {mutate: mutateLike} = useMutation({
         mutationKey: ["likepost"],
-        mutationFn: likerID => axios.patch(`/api/binder/post/like/${postID}`, likerID).then(res => res.data),
+        mutationFn: likerID => axios.patch(`https://binder-api.onrender.com/api/binder/post/like/${postID}`, likerID).then(res => res.data),
         onSuccess: likerID => {
             queryClient.invalidateQueries("getpost","userpost",userID, likerID);
             console.log(likerID);
@@ -39,7 +39,7 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
 
     const {mutate: mutateUnLike} = useMutation({
         mutationKey: ["likepost"],
-        mutationFn: likerID => axios.patch(`/api/binder/post/unlike/${postID}`, likerID).then(res => res.data),
+        mutationFn: likerID => axios.patch(`https://binder-api.onrender.com/api/binder/post/unlike/${postID}`, likerID).then(res => res.data),
         onSuccess: likerID => {
             queryClient.invalidateQueries("getpost","userpost",userID, likerID);
            
