@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const FriendSuggestion = () => {
     const {data: users, isLoading} = useQuery({
         queryKey: ["getusers"],
-        queryFn: () => axios.get("/api/binder/users").then(res => res.data.users),
+        queryFn: () => axios.get("https://binder-api.onrender.com/api/binder/users").then(res => res.data.users),
     });
 
     return (
