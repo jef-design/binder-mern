@@ -16,7 +16,7 @@ const SignUp = () => {
     const {setLogInUser} = useStore()
 
     const signInHandler = async (User) => {
-        const response = await axios.post('/api/binder/signup', User);
+        const response = await axios.post('https://binder-api.onrender.com/api/binder/signup', User);
         console.log(response)
         return response.data;
       };
