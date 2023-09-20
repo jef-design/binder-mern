@@ -36,7 +36,7 @@ const ProfileDetails = () => {
     // UNFOLLOW USER
      // FOLLOW USER
      const {mutate: mutateUnfollow, isLoading: unfollowLoader} = useMutation({
-        mutationFn: unfollowerID => axios.patch(`/api/binder/unfollow/${params.userID}`, unfollowerID).then(res => res.data),
+        mutationFn: unfollowerID => axios.patch(`https://binder-api.onrender.com/api/binder/unfollow/${params.userID}`, unfollowerID).then(res => res.data),
         onSuccess: () => {
             queryClient.invalidateQueries(["userinfo", params.userID]);
         },
@@ -52,7 +52,7 @@ const ProfileDetails = () => {
         data: UserPost, isLoading: userPostLoader,
     } = useQuery({
         queryKey: ["userpost", params.userID],
-        queryFn: () => axios.get(`/api/binder/user/post/${params.userID}`).then(res => res.data),
+        queryFn: () => axios.get(`https://binder-api.onrender.com/api/binder/user/post/${params.userID}`).then(res => res.data),
         
     });
 
