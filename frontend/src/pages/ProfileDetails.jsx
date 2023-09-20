@@ -23,7 +23,7 @@ const ProfileDetails = () => {
     });
     // FOLLOW USER
     const {mutate, isLoading: followLoader} = useMutation({
-        mutationFn: followerID => axios.patch(`/api/binder/follow/${params.userID}`, followerID).then(res => res.data),
+        mutationFn: followerID => axios.patch(`https://binder-api.onrender.com/api/binder/follow/${params.userID}`, followerID).then(res => res.data),
         onSuccess: () => {
             queryClient.invalidateQueries(["userinfo", params.userID]);
         },
