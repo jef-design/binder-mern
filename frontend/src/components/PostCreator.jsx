@@ -14,7 +14,7 @@ const PostCreator = () => {
     const {mutate, isLoading, isError} = useMutation({
         mutationFn: dataForm =>
             axios
-                .post("/api/binder/post/create", dataForm, {
+                .post("https://binder-api.onrender.com/api/binder/post/create", dataForm, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
