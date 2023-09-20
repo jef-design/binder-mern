@@ -5,6 +5,7 @@ dotenv.config()
 const userRoutes = require('./routes/userRoutes')
 const postRoutes = require('./routes/postRoutes')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 const app = express()
 //middlewares
