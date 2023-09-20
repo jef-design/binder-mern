@@ -19,7 +19,7 @@ const ProfileDetails = () => {
 
     const {data: userDetails} = useQuery({
         queryKey: ["userinfo", params.userID],
-        queryFn: () => axios.get(`/api/binder/user/${params.userID}`).then(res => res.data),
+        queryFn: () => axios.get(`https://binder-api.onrender.com/api/binder/user/${params.userID}`).then(res => res.data),
     });
     // FOLLOW USER
     const {mutate, isLoading: followLoader} = useMutation({
