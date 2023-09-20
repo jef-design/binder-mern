@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/binder': {
-        target: 'http://localhost:5000', // Replace with the URL of your backend server
+        target: 'https://binder-api.onrender.com', // Replace with the URL of your backend server
         changeOrigin: true,
       },
     },
