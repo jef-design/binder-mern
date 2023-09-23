@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cors({
     origin: ["https://binder-mern.vercel.app"],
-    methods: ['POST', 'GET', 'DELETE','PATCH'],
     credentials: true
 }))
 
