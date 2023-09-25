@@ -17,6 +17,7 @@ const PostCard = () => {
         queryFn: () => axiosInstance.get("/api/binder/post", {
             withCredentials: true
         }).then(res => res.data),
+        staleTime: 2000
         
     });
 
