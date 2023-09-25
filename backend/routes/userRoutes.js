@@ -10,8 +10,8 @@ router.post('/logout', logOutUser)
 router.get('/user/:id', getUserDetails)
 router.patch('/user/:id', upDateUser)
 router.get('/user/post/:id', getUserPost)
-router.patch('/follow/:id', authMiddleware, followUser)
-router.patch('/unfollow/:id', authMiddleware, UnfollowUser)
+router.patch('/follow/:id', followUser)
+router.patch('/unfollow/:id', UnfollowUser)
 router.get('/users', getUsers)
 
 

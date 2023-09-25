@@ -10,7 +10,11 @@ import axiosInstance from "../services/axiosInstance";
 const FriendSuggestion = () => {
     const {data: users, isLoading} = useQuery({
         queryKey: ["getusers"],
+<<<<<<< HEAD
         queryFn: () => axiosInstance.get("/api/binder/users").then(res => res.data.users),
+=======
+        queryFn: () => axios.get("https://binder-api.onrender.com/api/binder/users").then(res => res.data.users),
+>>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
     });
 
     return (

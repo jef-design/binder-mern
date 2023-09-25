@@ -11,7 +11,11 @@ const Header = () => {
     const queryClient = useQueryClient();
 
     const logOutHandler = () => {
+<<<<<<< HEAD
         axiosInstance.post("/api/binder/logout").then(res => res.data);
+=======
+        axios.post("https://binder-api.onrender.com/api/binder/logout").then(res => res.data);
+>>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
         logOutUser();
     };
     return (

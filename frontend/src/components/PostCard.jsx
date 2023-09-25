@@ -14,9 +14,13 @@ const PostCard = () => {
         isError,
     } = useQuery({
         queryKey: ["getpost"],
+<<<<<<< HEAD
         queryFn: () => axiosInstance.get("/api/binder/post", {
             withCredentials: true
         }).then(res => res.data),
+=======
+        queryFn: () => axios.get("https://binder-api.onrender.com/api/binder/post/").then(res => res.data),
+>>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
         
     });
 

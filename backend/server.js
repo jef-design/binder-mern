@@ -13,12 +13,20 @@ const app = express()
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+<<<<<<< HEAD
 app.use(cookieParser())
 app.use(cors({
     origin: ["http://localhost:5173"],
     methods: ['POST','GET','DELETE','PATCH'],
     credentials: true
 }))
+=======
+app.use(cors({
+    origin: ["https://binder-mern.vercel.app"],
+    credentials: true
+}))
+
+>>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
 
 
 app.get('/', (req, res, next) => {

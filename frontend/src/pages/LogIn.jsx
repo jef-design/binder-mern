@@ -17,9 +17,13 @@ const LogIn = () => {
     console.log(error)
 
     const logIn = async (User) => {
+<<<<<<< HEAD
         const response = await axiosInstance.post('/api/binder/login', User, {
             withCredentials: true
         });
+=======
+        const response = await axios.post('https://binder-api.onrender.com/api/binder/login', User);
+>>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
         return response.data; // Return the newly created post
       };
       
