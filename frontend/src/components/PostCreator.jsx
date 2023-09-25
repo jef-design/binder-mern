@@ -14,12 +14,7 @@ const PostCreator = () => {
     const queryClient = useQueryClient();
     const {mutate, isLoading, isError} = useMutation({
         mutationFn: dataForm =>
-<<<<<<< HEAD
             axiosInstance.post("/api/binder/post/create", dataForm, {
-=======
-            axios
-                .post("https://binder-api.onrender.com/api/binder/post/create", dataForm, {
->>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

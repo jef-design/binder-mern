@@ -20,19 +20,11 @@ const ProfileDetails = () => {
 
     const {data: userDetails} = useQuery({
         queryKey: ["userinfo", params.userID],
-<<<<<<< HEAD
         queryFn: () => axiosInstance.get(`/api/binder/user/${params.userID}`).then(res => res.data),
     });
     // FOLLOW USER
     const {mutate, isLoading: followLoader} = useMutation({
         mutationFn: followerID => axiosInstance.patch(`/api/binder/follow/${params.userID}`, followerID).then(res => res.data),
-=======
-        queryFn: () => axios.get(`https://binder-api.onrender.com/api/binder/user/${params.userID}`).then(res => res.data),
-    });
-    // FOLLOW USER
-    const {mutate, isLoading: followLoader} = useMutation({
-        mutationFn: followerID => axios.patch(`https://binder-api.onrender.com/api/binder/follow/${params.userID}`, followerID).then(res => res.data),
->>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
         onSuccess: () => {
             queryClient.invalidateQueries(["userinfo", params.userID]);
         },
@@ -45,11 +37,7 @@ const ProfileDetails = () => {
     // UNFOLLOW USER
      // FOLLOW USER
      const {mutate: mutateUnfollow, isLoading: unfollowLoader} = useMutation({
-<<<<<<< HEAD
         mutationFn: unfollowerID => axiosInstance.patch(`/api/binder/unfollow/${params.userID}`, unfollowerID).then(res => res.data),
-=======
-        mutationFn: unfollowerID => axios.patch(`https://binder-api.onrender.com/api/binder/unfollow/${params.userID}`, unfollowerID).then(res => res.data),
->>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
         onSuccess: () => {
             queryClient.invalidateQueries(["userinfo", params.userID]);
         },
@@ -65,11 +53,7 @@ const ProfileDetails = () => {
         data: UserPost, isLoading: userPostLoader,
     } = useQuery({
         queryKey: ["userpost", params.userID],
-<<<<<<< HEAD
         queryFn: () => axiosInstance.get(`/api/binder/user/post/${params.userID}`).then(res => res.data),
-=======
-        queryFn: () => axios.get(`https://binder-api.onrender.com/api/binder/user/post/${params.userID}`).then(res => res.data),
->>>>>>> 48cf4afe657d84e6207d8a49344ae202613d3ddf
         
     });
 
