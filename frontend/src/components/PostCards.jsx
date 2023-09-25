@@ -3,7 +3,7 @@ import {UserCircleIcon, HeartIcon as HeartIconSolid} from "@heroicons/react/24/s
 import {HeartIcon, ChatBubbleLeftIcon, TrashIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import axios from "axios";
+import axiosInstance from '../services/axiosInstance'
 import useStore from "../services/useStore";
 
 const PostCards = ({postID, userID, userName, caption, image, likes}) => {
@@ -11,7 +11,7 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
     const queryClient = useQueryClient();
     const {mutate} = useMutation({
         mutationKey: ["deletepost"],
-        mutationFn: postID => axios.delete(`/api/binder/post/${postID}`).then(res => res.data),
+        mutationFn: postID => axiosInstance.delete(`/api/binder/post/${postID}`).then(res => res.data),
         onSuccess: postID => {
             queryClient.invalidateQueries("getpost","userpost", userID);
             console.log(postID);

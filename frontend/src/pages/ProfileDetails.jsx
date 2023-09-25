@@ -8,6 +8,7 @@ import ProfilePlaceHolder from "../components/ProfilePlaceHolder";
 import EditProfileModal from "../components/EditProfileModal";
 import React,{ useState } from "react";
 import FollowButton from "../components/FollowButton";
+import axiosInstance from "../services/axiosInstance";
 
 const ProfileDetails = () => {
     const params = useParams();
@@ -19,11 +20,11 @@ const ProfileDetails = () => {
 
     const {data: userDetails} = useQuery({
         queryKey: ["userinfo", params.userID],
-        queryFn: () => axios.get(`/api/binder/user/${params.userID}`).then(res => res.data),
+        queryFn: () => axiosInstance.get(`/api/binder/user/${params.userID}`).then(res => res.data),
     });
     // FOLLOW USER
     const {mutate, isLoading: followLoader} = useMutation({
-        mutationFn: followerID => axios.patch(`/api/binder/follow/${params.userID}`, followerID).then(res => res.data),
+        mutationFn: followerID => axiosInstance.patch(`/api/binder/follow/${params.userID}`, followerID).then(res => res.data),
         onSuccess: () => {
             queryClient.invalidateQueries(["userinfo", params.userID]);
         },
@@ -36,7 +37,7 @@ const ProfileDetails = () => {
     // UNFOLLOW USER
      // FOLLOW USER
      const {mutate: mutateUnfollow, isLoading: unfollowLoader} = useMutation({
-        mutationFn: unfollowerID => axios.patch(`/api/binder/unfollow/${params.userID}`, unfollowerID).then(res => res.data),
+        mutationFn: unfollowerID => axiosInstance.patch(`/api/binder/unfollow/${params.userID}`, unfollowerID).then(res => res.data),
         onSuccess: () => {
             queryClient.invalidateQueries(["userinfo", params.userID]);
         },
@@ -52,7 +53,7 @@ const ProfileDetails = () => {
         data: UserPost, isLoading: userPostLoader,
     } = useQuery({
         queryKey: ["userpost", params.userID],
-        queryFn: () => axios.get(`/api/binder/user/post/${params.userID}`).then(res => res.data),
+        queryFn: () => axiosInstance.get(`/api/binder/user/post/${params.userID}`).then(res => res.data),
         
     });
 
@@ -72,7 +73,7 @@ const ProfileDetails = () => {
     }
     return (
         <div className="max-w-[780px] w-full mx-auto p-3 border rounded-md bg-white">
-            <EditProfileModal status={isOpen} modalCloseHandler={modalCloseHandler} />
+            <EditProfileModal currentUserLogId={currentUserLogId} status={isOpen} modalCloseHandler={modalCloseHandler} />
             {userDetails?.user.map(user => {
                 return (
                     <React.Fragment key={user._id}>
@@ -80,7 +81,7 @@ const ProfileDetails = () => {
                             <div>
                                 <h2 className=" text-2xl font-bold mb-2">{user.name}</h2>
                                 <div className="text-sm text-gray-500 italic">@{user.username}</div>
-                                <div>Web developer</div>
+                                <div>{user.bio}</div>
                                 <div className="mt-4">
                                     <span className=" text-gray-600">{user.follower.length} Follower</span>
                                 </div>

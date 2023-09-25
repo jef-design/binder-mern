@@ -3,17 +3,18 @@ import {useQuery} from "@tanstack/react-query";
 import axios from "axios";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
+import axiosInstance from "../services/axiosInstance";
 
 
 
 const FriendSuggestion = () => {
     const {data: users, isLoading} = useQuery({
         queryKey: ["getusers"],
-        queryFn: () => axios.get("/api/binder/users").then(res => res.data.users),
+        queryFn: () => axiosInstance.get("/api/binder/users").then(res => res.data.users),
     });
 
     return (
-        <div className="col-span-1">
+        <div className="sm:hidden">
             <div className=" bg-white p-3 rounded-md shadow-md">
             <h3 className="font-bold my-2">Friend Suggestion</h3>
             {users &&

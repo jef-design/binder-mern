@@ -3,6 +3,7 @@ import axios from "axios";
 import {PhotoIcon, XMarkIcon} from "@heroicons/react/24/outline";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Oval} from "react-loader-spinner";
+import axiosInstance from "../services/axiosInstance";
 
 const PostCreator = () => {
     const [caption, setCaption] = useState("");
@@ -13,8 +14,7 @@ const PostCreator = () => {
     const queryClient = useQueryClient();
     const {mutate, isLoading, isError} = useMutation({
         mutationFn: dataForm =>
-            axios
-                .post("/api/binder/post/create", dataForm, {
+            axiosInstance.post("/api/binder/post/create", dataForm, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

@@ -4,6 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import PostCards from "./PostCards";
 import {Navigate} from "react-router-dom";
 import PostPlaceholder from "./PostPlaceholder";
+import axiosInstance from "../services/axiosInstance";
 
 const PostCard = () => {
     
@@ -13,7 +14,9 @@ const PostCard = () => {
         isError,
     } = useQuery({
         queryKey: ["getpost"],
-        queryFn: () => axios.get("/api/binder/post/").then(res => res.data),
+        queryFn: () => axiosInstance.get("/api/binder/post", {
+            withCredentials: true
+        }).then(res => res.data),
         
     });
 

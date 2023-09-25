@@ -7,10 +7,10 @@ const createPost = async (req, res) => {
     const userID = req.user._id;
     const userName = await User.findOne(userID).select("name");
 
-    const {caption} = req.body;
+    const {caption, image} = req.body;
 
     const file = req.file;
-    
+    console.log(file,caption)
 
     if (!file) {
         const post = await Posts.create({
@@ -53,8 +53,7 @@ const getPosts = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
- 
-    console.log(req.params.id)
+
     const deleteID = req.params.id
     const posts = await Posts.findByIdAndDelete(deleteID).sort({createdAt: -1});
 
@@ -65,7 +64,7 @@ const likePost = async (req, res) => {
  
     const postToLikeId = req.params.id
     const likerId = req.body.id
-    console.log(postToLikeId, likerId)
+    
 
    try {
     const postlike = await Posts.findByIdAndUpdate(postToLikeId,{ $push:{likes: {userID: likerId}}})
@@ -78,7 +77,7 @@ const unLikePost = async (req, res) => {
  
     const postToUnLikeId = req.params.id
     const unlikerId = req.body.id
-    console.log(postToUnLikeId, unlikerId)
+   
 
    try {
     const postlike = await Posts.findByIdAndUpdate(postToUnLikeId,{ $pull:{likes: {userID: unlikerId}}})

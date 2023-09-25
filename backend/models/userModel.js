@@ -30,6 +30,10 @@ const userSchema = new Schema({
     following: {
         type: Number,
         default: 0
+    },
+    bio: {
+        type: String,
+        
     }
 },{
     timestamps: true

@@ -4,9 +4,10 @@ import {Link, useNavigate} from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import useStore from '../services/useStore'
 import {TailSpin} from "react-loader-spinner";
+import axiosInstance from '../services/axiosInstance'
 
 const LogIn = () => {
-
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
@@ -15,25 +16,10 @@ const LogIn = () => {
     const {user,setLogInUser} = useStore()
     console.log(error)
 
-    // const submitHandler = async (e)=> {
-    //     e.preventDefault()
-    //     const User = {email,password}
-    //     axios.post('/api/binder/login', User)
-    //     .then((res)=> {
-    //         setLogInUser(res.data)
-    //         console.log(res.data)
-    //         setEmail('')
-    //         setPassword('')
-    //         navigate('/')
-
-    //     })
-    //     .catch((error) => {
-    //         setError(error.response.data)
-    //         console.log(error)
-    //     })
-    // }
     const logIn = async (User) => {
-        const response = await axios.post('/api/binder/login', User);
+        const response = await axiosInstance.post('/api/binder/login', User, {
+            withCredentials: true
+        });
         return response.data; // Return the newly created post
       };
       

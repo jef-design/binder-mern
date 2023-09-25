@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import useStore from '../services/useStore'
 import {TailSpin} from "react-loader-spinner";
+import axiosInstance from '../services/axiosInstance'
 
 const SignUp = () => {
 
@@ -16,7 +17,7 @@ const SignUp = () => {
     const {setLogInUser} = useStore()
 
     const signInHandler = async (User) => {
-        const response = await axios.post('/api/binder/signup', User);
+        const response = await axiosInstance.post('/api/binder/signup', User);
         console.log(response)
         return response.data;
       };

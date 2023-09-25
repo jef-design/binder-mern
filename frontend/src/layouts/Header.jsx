@@ -4,13 +4,14 @@ import useStore from "../services/useStore";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";
+import axiosInstance from "../services/axiosInstance";
 
 const Header = () => {
     const {user, logOutUser} = useStore();
     const queryClient = useQueryClient();
 
     const logOutHandler = () => {
-        axios.post("/api/binder/logout").then(res => res.data);
+        axiosInstance.post("/api/binder/logout").then(res => res.data);
         logOutUser();
     };
     return (

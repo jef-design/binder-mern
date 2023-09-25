@@ -6,7 +6,7 @@ import useStore from "../services/useStore";
 const AsideMenu = () => {
     const {user } = useStore()
     return (
-        <div className="bg-white h-screen">
+        <div className="bg-white max-w-[450px] h-screen xl:hidden">
             <div className="flex flex-col gap-6 fixed left-0 p-4 rounded-md  border-b">
                 <Link to="/" className="flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100">
                     <HomeIcon className="h-6 w-6 text-gray-950" />
