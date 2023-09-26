@@ -5,7 +5,6 @@ const getDataUri = require("../utils/dataUri");
 
 const createPost = async (req, res) => {
     const userID = req.user._id;
-    const userName = await User.findOne(userID).select("name");
 
     const {caption, image} = req.body;
 
@@ -14,11 +13,10 @@ const createPost = async (req, res) => {
 
     if (!file) {
         const post = await Posts.create({
-            userName: userName.name,
             userID,
             caption,
         });
-        res.status(200).json({mssg: "post created", post: post});
+       return res.status(200).json({mssg: "post created", post: post});
     }
     
 
@@ -45,10 +43,14 @@ const createPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
-    // console.log(req.cookies.jwt)
-    // console.log(req.user._id)
-    const posts = await Posts.find({}).sort({createdAt: -1});
 
+    const posts = await Posts.find({}).sort({createdAt: -1}).populate({
+        path: 'userID',
+        select: ['name','profile_image.url'],
+      }).populate({
+        path: 'comments.userID',
+        select: ['name','profile_image.url']
+      })
     res.status(200).json({mssg: "get post", posts});
 };
 
@@ -86,7 +88,21 @@ const unLikePost = async (req, res) => {
     res.status(401).json({error: error.message})
    }
 };
+const commentPost = async (req, res) => {
+ 
+    const postToCommentId = req.params.id
+    const {id, comment} = req.body
+
+    // console.log(postToCommentId, commenterId)
+    
+
+   try {
+    const post = await Posts.findByIdAndUpdate(postToCommentId,{ $push:{comments: {userID: id,comment: comment}}})
+     res.status(200).json({mssg: 'post commented' , post})
+   } catch (error) {
+    res.status(401).json({error: error.message})
+   }
+};
 
 
-
-module.exports = {createPost, getPosts,deletePost,likePost,unLikePost};
+module.exports = {createPost, getPosts,deletePost,likePost,unLikePost,commentPost};

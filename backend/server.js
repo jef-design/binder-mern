@@ -20,7 +20,6 @@ app.use(cors({
     credentials: true
 }))
 
-
 app.get('/', (req, res, next) => {
     res.send('hello')
     next()

@@ -5,8 +5,13 @@ const Schema = mongoose.Schema
 const postSchema = new Schema({
     userID: {
         type: String,
-        required: false
+        required: false,
+        ref: 'User'
     },
+    // userPicture: {
+    //     type: String,
+    //     ref: 'User'
+    // },
     userName: {
         type: String,
         required: false
@@ -28,7 +33,17 @@ const postSchema = new Schema({
     likes: [{
         userID: {
             type: mongoose.Schema.Types.ObjectId,
-            // ref: 'User',
+            
+          }
+    }],
+    comments: [{
+        userID: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+          },
+          comment: {
+            type: String,
+            ref: 'User'
           }
     }],
 },{

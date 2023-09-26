@@ -23,13 +23,16 @@ const Header = () => {
             </div>
             <div className="flex gap-2">
                 {user && (
-                    <div className="flex gap-4">
+                    <div className="flex gap-4 items-center">
                         <div className="flex gap-1">
-                            <UserCircleIcon className="h-6 w-6 text-gray-500" />
+                        {user.profile_image && (<img className="h-9 w-9 rounded-full" src={user.profile_image.url} alt={user.name} />)}
+                                {!user.profile_image && (<UserCircleIcon className="h-6 w-6 text-gray-500" />)}
+                            {/* <UserCircleIcon className="h-6 w-6 text-gray-500" /> */}
                             <Link to={`/profile/${user._id}`}>{user?.name}</Link>
                         </div>
-                        <div onClick={logOutHandler} className=" cursor-pointer">
+                        <div onClick={logOutHandler} className=" cursor-pointer flex items-center gap-1">
                             <ArrowRightOnRectangleIcon className="h-6 w-6 text-red-500" />
+                            <span className=" text-gray-500">Sign out</span>
                         </div>
                     </div>
                 )}

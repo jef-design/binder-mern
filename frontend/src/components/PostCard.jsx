@@ -5,21 +5,26 @@ import PostCards from "./PostCards";
 import {Navigate} from "react-router-dom";
 import PostPlaceholder from "./PostPlaceholder";
 import axiosInstance from "../services/axiosInstance";
+import useStore from "../services/useStore";
+
 
 const PostCard = () => {
-    
+    const {logOutUser} = useStore();
+
+        
     const {
         data: PostData,
         isLoading,
+        error,
         isError,
+        isFetching
     } = useQuery({
         queryKey: ["getpost"],
-        queryFn: () => axiosInstance.get("/api/binder/post", {
-            withCredentials: true
-        }).then(res => res.data),
+        queryFn: () => axiosInstance.get("/api/binder/post").then(res => res.data),
+        staleTime: 2000
         
     });
-
+    console.log(PostData)
     if (isLoading) {
         return (
             <>
@@ -30,8 +35,10 @@ const PostCard = () => {
         );
     }
 
-    if (isError) {
-        return <span>Error</span>;
+    if (error?.response?.data?.message === 'Not Authorized, No token') {
+       alert('Session expired, Please login again.')
+       logOutUser();
+       
     }
    
     return (
@@ -42,11 +49,14 @@ const PostCard = () => {
                         <React.Fragment key={post._id}>
                             <PostCards
                                 postID={post._id}
-                                userID={post.userID}
-                                userName={post.userName}
+                                userID={post.userID?._id}
+                                profileImage={post.userID?.profile_image}
+                                name={post.userID?.name}
+                                // userName={post.userName}
                                 caption={post.caption}
                                 image={post.image}
                                 likes={post.likes}
+                                comments={post.comments}
                             />
                         </React.Fragment>
                     );

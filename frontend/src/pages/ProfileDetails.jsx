@@ -56,7 +56,7 @@ const ProfileDetails = () => {
         queryFn: () => axiosInstance.get(`/api/binder/user/post/${params.userID}`).then(res => res.data),
         
     });
-
+    console.log(UserPost)
     if (userPostLoader) {
         return (
             <>
@@ -72,7 +72,7 @@ const ProfileDetails = () => {
         setIsOpen(false)
     }
     return (
-        <div className="max-w-[780px] w-full mx-auto p-3 border rounded-md bg-white">
+        <div className="max-w-[780px] w-full mx-auto p-3 pt-7 border rounded-md bg-white">
             <EditProfileModal currentUserLogId={currentUserLogId} status={isOpen} modalCloseHandler={modalCloseHandler} />
             {userDetails?.user.map(user => {
                 return (
@@ -87,10 +87,10 @@ const ProfileDetails = () => {
                                 </div>
                             </div>
                             <div className="w-[120px] h-[120px] rounded-full border-2">
-                                <img src="" alt="" />
+                                <img className=" w-full h-full rounded-full" src={user?.profile_image?.url} alt="" />
                             </div>
                         </div>
-                        <div className="flex gap-2 justify-between mt-4 font-bold">
+                        <div className="flex gap-2 justify-between mt-4 font-[500]">
                             {params.userID === currentUserLogId ? (
                                 <button onClick={modalHandler} className="border w-full py-2 rounded-md">Edit Profile</button>
                             ) : (
@@ -117,10 +117,13 @@ const ProfileDetails = () => {
                                         <PostCards
                                             postID={post._id}
                                             userID={post.userID}
+                                            name={post.userID?.name}
+                                            profileImage={post.userID.profile_image}
                                             userName={post.userName}
                                             caption={post.caption}
                                             image={post.image}
                                             likes={post.likes}
+                                            comments={post.comments}
                                         />
                                     </React.Fragment>
                                 );

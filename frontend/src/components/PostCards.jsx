@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {UserCircleIcon, HeartIcon as HeartIconSolid} from "@heroicons/react/24/solid";
 import {HeartIcon, ChatBubbleLeftIcon, TrashIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
@@ -6,9 +6,12 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from '../services/axiosInstance'
 import useStore from "../services/useStore";
 
-const PostCards = ({postID, userID, userName, caption, image, likes}) => {
+const PostCards = ({postID,name, userID, userName,profileImage, caption, image, likes,comments}) => {
     const {user} = useStore();
     const queryClient = useQueryClient();
+    const [comment, setComment] = useState('')
+
+    //delete handler
     const {mutate} = useMutation({
         mutationKey: ["deletepost"],
         mutationFn: postID => axiosInstance.delete(`/api/binder/post/${postID}`).then(res => res.data),
@@ -21,11 +24,11 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
     const deleteHandler = () => {
         mutate(postID);
     };
-    //like post
+ 
     //like post
     const {mutate: mutateLike} = useMutation({
         mutationKey: ["likepost"],
-        mutationFn: likerID => axiosInstance.patch(`https://binder-api.onrender.com/api/binder/post/like/${postID}`, likerID).then(res => res.data),
+        mutationFn: likerID => axiosInstance.patch(`/api/binder/post/like/${postID}`, likerID).then(res => res.data),
         onSuccess: likerID => {
             queryClient.invalidateQueries("getpost","userpost",userID, likerID);
             console.log(likerID);
@@ -37,9 +40,10 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
         mutateLike(likerID);
     };
 
+    // unlike handler
     const {mutate: mutateUnLike} = useMutation({
         mutationKey: ["likepost"],
-        mutationFn: likerID => axiosInstance.patch(`https://binder-api.onrender.com/api/binder/post/unlike/${postID}`, likerID).then(res => res.data),
+        mutationFn: likerID => axiosInstance.patch(`/api/binder/post/unlike/${postID}`, likerID).then(res => res.data),
         onSuccess: likerID => {
             queryClient.invalidateQueries("getpost","userpost",userID, likerID);
            
@@ -51,14 +55,30 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
     };
     const filteredLiked = likes.filter(like => like.userID == user._id);
 
+    //comment handler 
+    const {mutate: mutateComment} = useMutation({
+        mutationKey: ["commentpost"],
+        mutationFn: commenterID => axiosInstance.patch(`/api/binder/post/comment/${postID}`, commenterID).then(res => res.data),
+        onSuccess: commenterID => {
+            queryClient.invalidateQueries("getpost","userpost",userID, commenterID);
+            setComment('')
+           
+        },
+    });
+    const sendComment = (e) => {
+        e.preventDefault()
+        const commenterID = {id: user._id, comment: comment};
+        mutateComment(commenterID);
+    }
 
     return (
         <div className="flex flex-col gap-5 bg-white p-2 rounded-md mb-4 shadow-md">
             <div className="flex justify-between">
-                <div className="flex gap-2">
-                    <UserCircleIcon className="h-6 w-6 text-gray-500" />
+                <div className="flex items-center gap-2">
+                    {!profileImage?.url && <UserCircleIcon className="h-9 w-9 text-gray-500" />}
+                    {profileImage && (<img className="h-9 w-9 rounded-full" src={profileImage?.url} alt="" /> )}
                     <Link to={`/profile/${userID}`}>
-                        <span className=" font-bold">{userName}</span>
+                        <span className=" font-[500]">{name}</span>
                     </Link>
                 </div>
                 {user._id === userID && (
@@ -67,7 +87,7 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
                     </div>
                 )}
             </div>
-            <div>{caption}</div>
+            <span className="font-[300] text-sm">{caption}</span>
             <div className="h-auto -mx-2">
                 {image && image?.url?.endsWith(".jpg") && (
                     <img className="max-h-[710px] w-full" src={image?.url} alt={caption} />
@@ -92,16 +112,43 @@ const PostCards = ({postID, userID, userName, caption, image, likes}) => {
                 </div>
                 <div className="flex items-center gap-1">
                     <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />{" "}
-                    <span className=" text-xs">No comment</span>
+               
+                    <span className=" text-xs">{comments.length} {comments.length <= 1 ? 'comment' : 'comments'}</span>
                 </div>
             </div>
+            <div>
+                {comments.map((c,i) => {
+                    return(
+                        <div key={i} className="flex gap-3 items-center mb-3">
+                            {!c.userID.profile_image?.url && <UserCircleIcon className="h-7 w-7 text-gray-500" />}
+                            {c.userID && (<img className="h-7 w-7 rounded-full" src={c.userID.profile_image?.url} alt="" /> )}
+                            <div >
+                            <div className=" text-xs font-[600]">
+                                {c.userID.name}
+                            </div >
+                            <span className="text-xs">{c.comment}</span>
+                            <p className=" text-xs text-gray-600">
+                                Reply
+                            </p>
+                            </div>
+                            
+                        </div>
+                    )
+                })}
+            </div>
             <div className="flex gap-4 border-t pt-2">
-                <UserCircleIcon className="h-6 w-6 text-gray-500" />
-                <input
+            {!profileImage?.url && <UserCircleIcon className="h-6 w-6 text-gray-500" />}
+                    {profileImage && (<img className="h-6 w-6 rounded-full" src={profileImage?.url} alt="" /> )}
+                {/* <UserCircleIcon className="h-6 w-6 text-gray-500" /> */}
+              <form onSubmit={sendComment}>
+              <input
+                    value={comment}
                     className="w-full outline-none text-sm"
                     type="text"
-                    placeholder={`Add a comment for ${userName}...`}
+                    placeholder={`Add a comment for ${name}...`}
+                    onChange={(e) => {setComment(e.target.value)}}
                 />
+              </form>
             </div>
         </div>
     );

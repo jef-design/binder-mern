@@ -23,7 +23,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        'sans': ['Nunito, sans-serif'],
+        'sans': ['Poppins, sans-serif'],
       },
     },
   },

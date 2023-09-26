@@ -17,9 +17,7 @@ const LogIn = () => {
     console.log(error)
 
     const logIn = async (User) => {
-        const response = await axiosInstance.post('/api/binder/login', User, {
-            withCredentials: true
-        });
+        const response = await axiosInstance.post('/api/binder/login', User);
         return response.data; // Return the newly created post
       };
       

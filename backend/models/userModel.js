@@ -17,6 +17,16 @@ const userSchema = new Schema({
         required: true,
         unique: true
     },
+    profile_image: {
+        public_id: {
+            type: String,
+            required: false
+        },
+        url: {
+            type: String,
+            required: false
+        }
+    },
     password: {
         type: String,
         required: true
