@@ -13,8 +13,8 @@ const generateToken = (res, _id) => {
     const cookieExpires = jwtExpires * 1000
     res.cookie('jwt', createdtoken ,{
         httpOnly: true,
-        secure: false,
-        sameSite: 'strict',
+        secure: true,
+        sameSite: 'none',
         maxAge: cookieExpires
     })
 
