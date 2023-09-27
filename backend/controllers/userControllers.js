@@ -64,6 +64,7 @@ const signUpUser = async (req, res) => {
             username: user.username,
            email: user.email,
            name: user.name,
+           profile_image: user.profile_image.url
         })
 
     } catch (error) {
@@ -82,6 +83,7 @@ const logInUser = async (req, res) => {
             username: user.username,
             email: user.email,
             name: user.name,
+            profile_image: user.profile_image.url
          })
     } catch (error) {
         res.status(401).json({error: error.message})

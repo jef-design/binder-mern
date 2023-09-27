@@ -23,9 +23,9 @@ const Header = () => {
             </div>
             <div className="flex gap-2">
                 {user && (
-                    <div className="flex gap-4 items-center">
-                        <div className="flex gap-1">
-                        {user.profile_image && (<img className="h-9 w-9 rounded-full" src={user.profile_image.url} alt={user.name} />)}
+                    <div className="flex gap-4 items-center text-sm">
+                        <div className="flex gap-1 items-center">
+                        {user.profile_image && (<img className="h-6 w-6 rounded-full" src={user.profile_image} alt={user.name} />)}
                                 {!user.profile_image && (<UserCircleIcon className="h-6 w-6 text-gray-500" />)}
                             {/* <UserCircleIcon className="h-6 w-6 text-gray-500" /> */}
                             <Link to={`/profile/${user._id}`}>{user?.name}</Link>

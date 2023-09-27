@@ -3,6 +3,10 @@ import {TailSpin} from "react-loader-spinner";
 import useStore from '../services/useStore';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axiosInstance from '../services/axiosInstance'
+import { BackspaceIcon } from "@heroicons/react/24/outline";
+
+
+
 
 const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
     const queryClient = useQueryClient()
@@ -60,11 +64,18 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
     return (
        <div style={{display: status ? 'flex' : 'none'}} className='fixed z-10 top-0 left-0 flex items-center justify-center accent-gray-500/100 h-screen w-screen'>
         <div onClick={modalCloseHandler}  className='flex justify-center items-center w-screen h-screen fixed bottom-0 left-0 right-0 top-0 bg-black bg-opacity-60'></div>
-         <div className=" rounded-md mb-3 border-b py-2 px-4 max-w-[500px] w-full bg-white
+         <div className=" rounded-md mb-3 border-b py-2 px-5 max-w-[500px] w-full bg-white
          absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+             {/* //exit button */}
+             <div onClick={modalCloseHandler} className=' absolute right-4 top-2 cursor-pointer'>
+             <BackspaceIcon class="h-9 w-9 text-red-500" />
+              </div>
             <h3 className=' font-bold text-lg'>Edit Profile</h3>
             <form className='mt-4' onSubmit={updateHandler}>
                 <div className="flex flex-col mb-2">
+                    <div>
+                        <img className='h-[100px] w-[100px] rounded-full' src={user.profile_image} alt="" />
+                    </div>
                 <label className='px-4 py-1 text-sm border rounded-sm max-w-[200px] my-4 cursor-pointer' htmlFor="fileInput">Change profile picture</label>
                 <input accept="image/*" type="file" id="fileInput" onChange={handleImageChange} className="hidden" />
                     <div className="flex flex-col mb-4">
@@ -126,6 +137,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
                         type="text"
                     />
                 </div>
+               
                 <button
                     onClick={updateHandler}
                     style={{opacity: isLoading && "0.5"}}

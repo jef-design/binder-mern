@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from '../services/axiosInstance'
 import useStore from "../services/useStore";
+import {Comment} from "react-loader-spinner";
 
 const PostCards = ({postID,name, userID, userName,profileImage, caption, image, likes,comments}) => {
     const {user} = useStore();
@@ -56,7 +57,7 @@ const PostCards = ({postID,name, userID, userName,profileImage, caption, image, 
     const filteredLiked = likes.filter(like => like.userID == user._id);
 
     //comment handler 
-    const {mutate: mutateComment} = useMutation({
+    const {mutate: mutateComment, isLoading} = useMutation({
         mutationKey: ["commentpost"],
         mutationFn: commenterID => axiosInstance.patch(`/api/binder/post/comment/${postID}`, commenterID).then(res => res.data),
         onSuccess: commenterID => {
@@ -87,7 +88,7 @@ const PostCards = ({postID,name, userID, userName,profileImage, caption, image, 
                     </div>
                 )}
             </div>
-            <span className="font-[300] text-sm">{caption}</span>
+            <span className="font-[400] text-sm">{caption}</span>
             <div className="h-auto -mx-2">
                 {image && image?.url?.endsWith(".jpg") && (
                     <img className="max-h-[710px] w-full" src={image?.url} alt={caption} />
@@ -116,30 +117,42 @@ const PostCards = ({postID,name, userID, userName,profileImage, caption, image, 
                     <span className=" text-xs">{comments.length} {comments.length <= 1 ? 'comment' : 'comments'}</span>
                 </div>
             </div>
-            <div>
-                {comments.map((c,i) => {
+            <div className="px-3 mt-1 border-t pt-3">
+                {comments.map((com,i) => {
                     return(
                         <div key={i} className="flex gap-3 items-center mb-3">
-                            {!c.userID.profile_image?.url && <UserCircleIcon className="h-7 w-7 text-gray-500" />}
-                            {c.userID && (<img className="h-7 w-7 rounded-full" src={c.userID.profile_image?.url} alt="" /> )}
-                            <div >
-                            <div className=" text-xs font-[600]">
-                                {c.userID.name}
-                            </div >
-                            <span className="text-xs">{c.comment}</span>
-                            <p className=" text-xs text-gray-600">
-                                Reply
-                            </p>
+                            {!com.userID.profile_image?.url && <UserCircleIcon className="h-7 w-7 text-gray-500" />}
+                            {com.userID && (<img className="h-7 w-7 rounded-full" src={com.userID.profile_image?.url} alt="" /> )}
+                            <div className=" bg-gray-100 w-full p-2 rounded-md">
+                                <div className=" text-xs font-[600]">
+                                {com.userID.name}
+                                </div >
+                                <span className="text-xs">{com.comment}</span>
+                                <p className=" text-xs text-gray-600">Reply</p>
                             </div>
                             
                         </div>
                     )
                 })}
+                {isLoading && (
+                    <div className="flex justify-center">                   
+                    <Comment
+                        visible={true}
+                        ariaLabel="comment-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="comment-wrapper"
+                        color="#fff"
+                        backgroundColor="#2e50af"
+                        height={30}
+                        width={30}
+                    />
+                    </div>
+                )}
             </div>
             <div className="flex gap-4 border-t pt-2">
             {!profileImage?.url && <UserCircleIcon className="h-6 w-6 text-gray-500" />}
                     {profileImage && (<img className="h-6 w-6 rounded-full" src={profileImage?.url} alt="" /> )}
-                {/* <UserCircleIcon className="h-6 w-6 text-gray-500" /> */}
+        
               <form onSubmit={sendComment}>
               <input
                     value={comment}

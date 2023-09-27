@@ -62,6 +62,8 @@ const ProfileDetails = () => {
             <>
             <ProfilePlaceHolder/>
               <PostPlaceholder/>
+              <PostPlaceholder/>
+              <PostPlaceholder/>
             </>
         );
     }

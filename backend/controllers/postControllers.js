@@ -6,17 +6,16 @@ const getDataUri = require("../utils/dataUri");
 const createPost = async (req, res) => {
     const userID = req.user._id;
 
-    const {caption, image} = req.body;
+    const {caption} = req.body;
 
     const file = req.file;
-    console.log(file,caption)
 
     if (!file) {
         const post = await Posts.create({
             userID,
             caption,
         });
-       return res.status(200).json({mssg: "post created", post: post});
+      return res.status(200).json({mssg: "post created", post: post});
     }
     
 
@@ -28,7 +27,6 @@ const createPost = async (req, res) => {
         });
         // console.log(result)
         const post = await Posts.create({
-            userName: userName.name,
             userID,
             caption,
             image: {
@@ -55,11 +53,26 @@ const getPosts = async (req, res) => {
 };
 
 const deletePost = async (req, res) => {
-
+    
     const deleteID = req.params.id
-    const posts = await Posts.findByIdAndDelete(deleteID).sort({createdAt: -1});
+    const imagePulicId = await Posts.findById(deleteID)
+    const postFiltered = imagePulicId.image.public_id
+    
 
-    res.status(200).json({mssg: "delete post", posts});
+    if(!postFiltered){
+        
+        const posts = await Posts.findByIdAndDelete(deleteID)
+        return  res.status(200).json({mssg: "delete post", posts});
+        
+    }
+
+    try {
+        await cloudinary.uploader.destroy(postFiltered)
+        const posts = await Posts.findByIdAndDelete(deleteID)
+        res.status(200).json({mssg: "delete post", posts});
+    } catch (error) {
+        res.status(400).json({error})
+    }
 };
 
 const likePost = async (req, res) => {
