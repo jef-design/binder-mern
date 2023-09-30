@@ -126,6 +126,7 @@ const ProfileDetails = () => {
                                             image={post.image}
                                             likes={post.likes}
                                             comments={post.comments}
+                                            userLogged={currentUserLogId}
                                         />
                                     </React.Fragment>
                                 );

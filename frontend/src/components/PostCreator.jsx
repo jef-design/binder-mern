@@ -46,7 +46,7 @@ const PostCreator = () => {
 
     return (
         <div>
-            <div className=" bg-white rounded-md p-3 shadow-md">
+            <div className=" bg-white rounded-md px-4 py-2 shadow-md">
                 <span className=" font-bold">Create Post</span>
                 <form onSubmit={submitHandler}>
                     <div className="my-2">

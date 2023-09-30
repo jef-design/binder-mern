@@ -1,27 +1,30 @@
 import React from "react";
 import {useQuery} from "@tanstack/react-query";
-import axios from "axios";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import axiosInstance from "../services/axiosInstance";
 import useStore from '../services/useStore'
+import Search from "./Search";
 
 
 
 const FriendSuggestion = () => {
     const {user} = useStore();
-    const userLoggedIn = user.id
+    const userLoggedIn = user._id
     const {data: users, isLoading} = useQuery({
         queryKey: ["getusers"],
         queryFn: () => axiosInstance.get("/api/binder/users").then(res => res.data.users),
     });
 
+    const filteredUser = users?.filter((u) => u._id !== userLoggedIn)
+  
     return (
         <div className="sm:hidden">
+            <Search/>
             <div className=" bg-white p-3 rounded-md shadow-md">
-            <h3 className="font-bold my-2">Friend Suggestion</h3>
-            {users &&
-                users.map(user => {
+            <h3 className="font-bold my-2">People in binder you might follow</h3>
+            {filteredUser &&
+                filteredUser.map(user => {
                     return (
                        
                         <Link to={`/profile/${user._id}`} key={user._id} className="flex justify-between my-2 rounded-sm cursor-pointer py-2 hover:bg-gray-100">

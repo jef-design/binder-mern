@@ -15,7 +15,7 @@ const Header = () => {
         logOutUser();
     };
     return (
-        <div className="flex p-3 justify-between border bg-white sticky top-0 left-0 right-0 z-10">
+        <div className="flex px-4 py-2 justify-between border bg-white sticky top-0 left-0 right-0 z-10">
             <div>
                 <Link to={"/"} className=" font-bold text-lg">
                     Binder.

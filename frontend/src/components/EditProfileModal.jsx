@@ -14,6 +14,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
    
     const [username, setUsername] = useState(user.username)
     const [image, setImage] = useState(null);
+    const [prevImage, setPrevImage] = useState(null);
     console.log(image)
     const [name, setName] = useState(user.name)
     const [email, setEmail] = useState(user.email)
@@ -58,6 +59,9 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
         const file = event.target.files[0];
         setImage(file);
 
+        //Preview the image
+        const prevImage = URL.createObjectURL(event.target.files[0]);
+        setPrevImage(prevImage);
     };
 
 
@@ -66,15 +70,16 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
         <div onClick={modalCloseHandler}  className='flex justify-center items-center w-screen h-screen fixed bottom-0 left-0 right-0 top-0 bg-black bg-opacity-60'></div>
          <div className=" rounded-md mb-3 border-b py-2 px-5 max-w-[500px] w-full bg-white
          absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-             {/* //exit button */}
+            
              <div onClick={modalCloseHandler} className=' absolute right-4 top-2 cursor-pointer'>
-             <BackspaceIcon class="h-9 w-9 text-red-500" />
+             <BackspaceIcon className="h-9 w-9 text-red-500" />
               </div>
             <h3 className=' font-bold text-lg'>Edit Profile</h3>
             <form className='mt-4' onSubmit={updateHandler}>
                 <div className="flex flex-col mb-2">
                     <div>
-                        <img className='h-[100px] w-[100px] rounded-full' src={user.profile_image} alt="" />
+                        {prevImage ? <img className='h-[100px] w-[100px] rounded-full' src={prevImage} alt="" /> :
+                        <img className='h-[100px] w-[100px] rounded-full' src={user.profile_image} alt="" />}
                     </div>
                 <label className='px-4 py-1 text-sm border rounded-sm max-w-[200px] my-4 cursor-pointer' htmlFor="fileInput">Change profile picture</label>
                 <input accept="image/*" type="file" id="fileInput" onChange={handleImageChange} className="hidden" />

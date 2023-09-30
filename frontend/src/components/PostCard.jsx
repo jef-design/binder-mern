@@ -9,8 +9,8 @@ import useStore from "../services/useStore";
 
 
 const PostCard = () => {
-    const {logOutUser} = useStore();
-
+    const {logOutUser, user} = useStore();
+    const userLogged = user._id
         
     const {
         data: PostData,
@@ -24,7 +24,7 @@ const PostCard = () => {
         staleTime: 2000
         
     });
-    console.log(PostData)
+
     if (isLoading) {
         return (
             <>
@@ -49,7 +49,7 @@ const PostCard = () => {
                         <React.Fragment key={post._id}>
                             <PostCards
                                 postID={post._id}
-                                userID={post.userID?._id}
+                                userID={post.userID}
                                 profileImage={post.userID?.profile_image}
                                 name={post.userID?.name}
                                 // userName={post.userName}
@@ -57,6 +57,7 @@ const PostCard = () => {
                                 image={post.image}
                                 likes={post.likes}
                                 comments={post.comments}
+                                userLogged={userLogged}
                             />
                         </React.Fragment>
                     );

@@ -1,5 +1,5 @@
 const express = require('express')
-const { signUpUser, logInUser, logOutUser,getUserDetails,upDateUser, followUser,UnfollowUser,getUserPost, getUsers, refreshToken } = require('../controllers/userControllers')
+const { signUpUser, logInUser, logOutUser,getUserDetails,upDateUser, followUser,UnfollowUser,getUserPost, getUsers, refreshToken, searchBinder } = require('../controllers/userControllers')
 const router = express.Router()
 const multer = require('multer');
 
@@ -18,6 +18,7 @@ router.get('/user/post/:id', authMiddleware, getUserPost)
 router.patch('/follow/:id', authMiddleware, followUser)
 router.patch('/unfollow/:id', authMiddleware, UnfollowUser)
 router.get('/users', getUsers)
+router.get('/search', authMiddleware, searchBinder)
 
 
 

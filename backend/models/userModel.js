@@ -48,6 +48,18 @@ const userSchema = new Schema({
 },{
     timestamps: true
 })
+// userSchema.index({name: 'text'});
+
+userSchema.statics.searchQuery = async function (term) {
+    const regex = new RegExp(term, 'i'); // Case-insensitive regex pattern
+
+    return this.find({
+        $or: [
+            { name: regex },       // Search by name
+            { username: regex },   // Search by username
+        ],
+    }).select('name username profile_image.public_id profile_image.url');
+};
 
 userSchema.statics.signup = async function(username,name,email, password) {
     const userexist = await this.findOne({email})

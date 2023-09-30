@@ -27,26 +27,26 @@ const AsideMenu = () => {
     },
     {
       pathname: "Notifications",
-      to: "/n",
+      to: "/notifications",
       icon: <BellAlertIcon className="h-6 w-6 text-gray-950" />,
       id: 3,
     },
     {
       pathname: "Friends",
-      to: "/f",
+      to: "/friends",
       icon: <UserGroupIcon className="h-6 w-6 text-gray-950" />,
       id: 4,
     },
     {
       pathname: "Settings",
-      to: "/s",
+      to: "/settings",
       icon: <Cog6ToothIcon className="h-6 w-6 text-gray-950" />,
       id: 5,
     },
   ];
 
   return (
-    <div className="bg-white max-w-[450px] h-full xl:hidden">
+    <div className="bg-white max-w-[450px] h-full h-screen xl:hidden">
       <div className="flex flex-col gap-6 fixed left-0 p-4 rounded-md  border-b">
         {links.map((link, i) => {
           return (

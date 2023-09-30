@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-    baseURL: 'https://binder-api.onrender.com',
+    baseURL: import.meta.env.PROD ? import.meta.env.VITE_BASE_URL : import.meta.env.VITE_DEV_BASE_URL,
     withCredentials: true,
 })
 

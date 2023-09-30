@@ -7,6 +7,7 @@ import ProfileDetails from './pages/ProfileDetails'
 import useStore from './services/useStore'
 import AsideMenu from './layouts/AsideMenu'
 import ProfileScreeen from './pages/ProfileScreen'
+import SettingsScreen from './pages/SettingsScreen'
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
           <Route path='/profile/:userID' element={user ? <ProfileScreeen/> : <Navigate to={'/login'} />} />
           <Route path='/signup' element={!user ? <SignUp /> : <Navigate to={'/'} />} />
           <Route path='/login' element={!user ? <LogIn /> : <Navigate to={'/'} />} />
+          <Route path='/settings' element={<SettingsScreen/>} />
           
         </Routes>
         {/* </main> */}
