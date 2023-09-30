@@ -1,3 +1,5 @@
+const dotenv = require('dotenv')
+dotenv.config()
 const Posts = require('../models/postsModels');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
@@ -19,7 +21,7 @@ const generateToken = (res, _id) => {
     sameSite: process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict',
     maxAge: cookieExpires,
   });
-  console.log(process.env.NODE_ENVIRONMENT === 'production' ? true : false, process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict')
+ // console.log(process.env.NODE_ENVIRONMENT === 'production' ? true : false, process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict')
   return createdtoken;
 };
 
