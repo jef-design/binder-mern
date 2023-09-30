@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
 app.use(cors({
-    origin: [process.env.NODE_ENVIRONMENT == 'development' ? 'http://localhost:5173' : process.env.BASE_URL],
+    origin: [process.env.NODE_ENVIRONMENT === 'production' ? process.env.BASE_URL : 'http://localhost:5173'],
     methods: ['POST','GET','DELETE','PATCH'],
     credentials: true
 }))

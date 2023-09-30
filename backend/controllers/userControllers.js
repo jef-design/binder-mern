@@ -19,7 +19,7 @@ const generateToken = (res, _id) => {
     sameSite: process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict',
     maxAge: cookieExpires,
   });
-
+  console.log(process.env.NODE_ENVIRONMENT === 'production' ? true : false, process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict')
   return createdtoken;
 };
 
