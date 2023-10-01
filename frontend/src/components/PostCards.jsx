@@ -104,7 +104,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
             <span className="font-[400] text-sm">{caption}</span>
             <div className="h-auto -mx-4">
                 {image && image?.url?.endsWith(".jpg") && (
-                    <img className="max-h-[710px] w-full" src={image?.url} alt={caption} />
+                    <img loading="lazy" className="max-h-[710px] w-full" src={image?.url} alt={caption} />
                 )}
                 {image && image?.url?.endsWith(".mp4") && <video controls width="100%" src={image?.url} />}
             </div>

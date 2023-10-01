@@ -9,7 +9,7 @@ const getDataUri = require('../utils/dataUri');
 
 // Access Token
 const generateToken = (res, _id) => {
-  const jwtExpires = 3600;
+  const jwtExpires = 604800;
   const createdtoken = jwt.sign({ _id }, process.env.JWT_SECRET, {
     expiresIn: jwtExpires,
   });

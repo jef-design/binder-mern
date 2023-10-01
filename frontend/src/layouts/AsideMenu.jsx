@@ -46,8 +46,8 @@ const AsideMenu = () => {
   ];
 
   return (
-    <div className="bg-white max-w-[450px] h-full h-screen xl:hidden">
-      <div className="flex flex-col gap-6 fixed left-0 p-4 rounded-md  border-b">
+    <div className=" bg-white xl:hidden ">
+      <div className="flex flex-col gap-6 fixed left-0 p-4 rounded-md bg-white h-full border-b">
         {links.map((link, i) => {
           return (
             <NavLink

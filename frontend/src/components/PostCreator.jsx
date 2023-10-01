@@ -64,7 +64,7 @@ const PostCreator = () => {
                         <div>
                             <label htmlFor="fileInput" id="customFileLabel">
                                 <div className="flex items-center cursor-pointer border-r px-5">
-                                    <PhotoIcon className="h-6 w-6 text-gray-500 cursor-pointer mr-3" />
+                                    <PhotoIcon className="h-6 w-6 text-sky-500 cursor-pointer mr-3" />
                                     <span className=" text-sm">Add Photo/Video</span>
                                 </div>
                             </label>
