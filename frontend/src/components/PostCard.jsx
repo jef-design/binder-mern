@@ -40,7 +40,7 @@ const PostCard = () => {
        logOutUser();
        
     }
-    console.log(PostData)
+   
    
     return (
         <div className="mt-5 relative">

@@ -104,7 +104,10 @@ const logOutUser = async (req, res) => {
 
 const getUserDetails = async (req, res) => {
   const _id = req.params.id;
-  const user = await User.find({ _id });
+  const user = await User.find({ _id }).populate({
+    path: 'follower.userID',
+    select: ['name', 'profile_image.url', 'username'],
+  })
   res.status(200).json({ message: 'Get user', user });
 };
 
@@ -154,7 +157,16 @@ const upDateUser = async (req, res) => {
     res.status(401).json({ error: error.message });
   }
 };
+const deleteUser = async (req, res) => {
+  const userTodelete = req.params.id;
 
+  try {
+    const user = await User.findByIdAndDelete(userTodelete);
+    res.status(200).json({ mssg: 'success delete', user });
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
 const followUser = async (req, res) => {
   const userTofollowId = req.params.id;
   const followerId = req.body.id;
@@ -229,6 +241,7 @@ module.exports = {
   upDateUser,
   followUser,
   UnfollowUser,
+  deleteUser,
   getUserPost,
   getUsers,
   refreshToken,

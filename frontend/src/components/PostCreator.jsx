@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {PhotoIcon, XMarkIcon, PaperClipIcon} from "@heroicons/react/24/outline";
+import { UserCircleIcon} from "@heroicons/react/24/solid";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Oval} from "react-loader-spinner";
 import axiosInstance from "../services/axiosInstance";
@@ -47,13 +48,14 @@ const PostCreator = () => {
     };
 
     return (
-        <div>
-            <div className=" bg-white rounded-md px-4 py-2 shadow-md sticky left-0 top-0">
+        <div className="">
+            <div className=" bg-white rounded-md px-4 py-2 shadow-md sticky left-0 bottom-0">
                 <span className=" font-bold">Create Post</span>
                 <form onSubmit={submitHandler}>
                     <div className="my-2 flex items-center border rounded-3xl overflow-hidden px-1">
                         <div>
-                            <img className="h-9 w-9 rounded-full" src={user?.profile_image} alt="sd" />
+                            {user.profile_image && (<img className="h-9 w-9 rounded-full" src={user?.profile_image} alt="sd" />)}
+                            {!user.profile_image && (<UserCircleIcon className="h-6 w-6 rounded-full text-gray-500" />)}
                         </div>
                         <input
                             value={caption}
@@ -77,7 +79,7 @@ const PostCreator = () => {
                             <input accept="image/*,video/*" type="file" id="fileInput" onChange={handleImageChange} className=" hidden" />
                         </div>
                         <div className="flex items-center cursor-pointer border-r px-5">
-                            <PaperClipIcon class="h-6 w-6 text-red-500" />
+                            <PaperClipIcon className="h-6 w-6 text-red-500" />
                             <span className=" text-sm">File</span>
                         </div>
                         </div>

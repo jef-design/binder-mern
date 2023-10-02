@@ -8,6 +8,16 @@ import useStore from './services/useStore'
 import AsideMenu from './layouts/AsideMenu'
 import ProfileScreeen from './pages/ProfileScreen'
 import SettingsScreen from './pages/SettingsScreen'
+import FriendsScreeen from './pages/FriendsScreen'
+//
+import TimeAgo from 'javascript-time-ago'
+
+import en from 'javascript-time-ago/locale/en.json'
+import ru from 'javascript-time-ago/locale/ru.json'
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
+
 
 function App() {
 
@@ -17,18 +27,15 @@ function App() {
     <div className=''>
      <BrowserRouter>
         <Header/>
-        {/* <main className='grid grid-cols-3 gap-2 mt-3 relative'>
-        <AsideMenu /> */}
-        {/* {window.location.pathname !== '/login' && <AsideMenu />} */}
+
         <Routes>
           <Route path='/' element={user ? <Home/> : <Navigate to={'/login'} />} />
           <Route path='/profile/:userID' element={user ? <ProfileScreeen/> : <Navigate to={'/login'} />} />
           <Route path='/signup' element={!user ? <SignUp /> : <Navigate to={'/'} />} />
           <Route path='/login' element={!user ? <LogIn /> : <Navigate to={'/'} />} />
-          <Route path='/settings' element={<SettingsScreen/>} />
-          
+          <Route path='/friends' element={user ? <FriendsScreeen/> : <Navigate to={'/login'} />} />
+          <Route path='/settings' element={user ? <SettingsScreen/> : <Navigate to={'/login'} />} />
         </Routes>
-        {/* </main> */}
      </BrowserRouter>
     </div>
   )

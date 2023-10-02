@@ -34,7 +34,7 @@ const Search = () => {
   return (
     <div className=' bg-white p-2 rounded-md shadow-sm mb-5'>
         <div className=' border w-full flex items-center px-1 rounded-2xl bg-gray-100'>
-        <MagnifyingGlassIcon class="h-6 w-6 text-gray-700" />
+        <MagnifyingGlassIcon className="h-6 w-6 text-gray-700" />
             <input value={term} className='px-3 py-1 bg-transparent text-gray-700 outline-none' type="text" onChange={searchHandler} placeholder='Search Binder' />
         </div>
         {dataSearch?.length == 0 && (<div className=' mt-2'>No results found for "{term}"</div>)}

@@ -6,14 +6,6 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from '../services/axiosInstance'
 import useStore from "../services/useStore";
 import {Comment} from "react-loader-spinner";
-//
-import TimeAgo from 'javascript-time-ago'
-
-import en from 'javascript-time-ago/locale/en.json'
-import ru from 'javascript-time-ago/locale/ru.json'
-
-TimeAgo.addDefaultLocale(en)
-TimeAgo.addLocale(ru)
 import ReactTimeAgo from 'react-time-ago'
 
 const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comments,userLogged,date}) => {
@@ -83,7 +75,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
     }
 
       //delete comment handler
-      const postedComment = { postID}
+     
       const {mutate: deleteCommentMutate} = useMutation({
         mutationKey: ["deletecomment"],
         mutationFn: (commentID) => axiosInstance.patch(`/api/binder/post/comment/delete/${postID}`, commentID).then(res => res.data),
@@ -104,7 +96,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                         <span className=" font-[500]">{name}</span>
                     </Link>
                         <div className=" text-xs text-gray-600">
-                        <ReactTimeAgo date={date} locale="en-US"/>
+                        <ReactTimeAgo date={Date.parse(date)} locale="en-US"/>
                         </div>
                     </div>
                     
@@ -186,10 +178,10 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
             {!userProfile && <UserCircleIcon className="h-6 w-6 text-gray-500" />}
                     {userProfile && (<img className="h-6 w-6 rounded-full" src={userProfile} alt="" /> )}
         
-              <form onSubmit={sendComment}>
+              <form className=" w-full" onSubmit={sendComment}>
               <input
                     value={comment}
-                    className="w-full outline-none text-sm"
+                    className="outline-none text-sm w-full"
                     type="text"
                     placeholder={`Add a comment for ${name}...`}
                     onChange={(e) => {setComment(e.target.value)}}

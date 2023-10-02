@@ -56,11 +56,11 @@ const SignUp = () => {
             </div>
             <div className='flex flex-col mb-2'>
                 <label htmlFor="email">Email</label>
-                <input style={{border: isError && '1px solid red'}} value={email} className='border p-2 mt-2' onChange={(e) => {setEmail(e.target.value)}} type="text" />
+                <input style={{border: isError && '1px solid red'}} value={email} className='border p-2 mt-2' onChange={(e) => {setEmail(e.target.value)}} type="email" />
             </div>
             <div className='flex flex-col mb-2'>
                 <label htmlFor="password">Password</label>
-                <input style={{border: isError && '1px solid red'}} value={password} className='border p-2 mt-2' onChange={(e) => {setPassword(e.target.value)}} type="text" />
+                <input style={{border: isError && '1px solid red'}} value={password} className='border p-2 mt-2' onChange={(e) => {setPassword(e.target.value)}} type="password" />
             </div>
            < button style={{opacity: isLoading && '0.5'}} className='flex gap-2 items-center justify-center p-2 bg-gray-900 text-white text-center mt-2 rounded-sm w-full'>
                 {isLoading ? 'Registering' : 'Register '}
