@@ -9,6 +9,15 @@ import ProfilePlaceHolder from "../components/ProfilePlaceHolder";
 import EditProfileModal from "../components/EditProfileModal";
 import FollowButton from "../components/FollowButton";
 import axiosInstance from "../services/axiosInstance";
+//
+import TimeAgo from 'javascript-time-ago'
+
+import en from 'javascript-time-ago/locale/en.json'
+import ru from 'javascript-time-ago/locale/ru.json'
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
+import ReactTimeAgo from 'react-time-ago'
 
 const ProfileDetails = () => {
     const params = useParams();
@@ -131,6 +140,7 @@ const ProfileDetails = () => {
                                             image={post.image}
                                             likes={post.likes}
                                             comments={post.comments}
+                                            date={post.createdAt}
                                             userLogged={currentUserLogId}
                                         />
                                     </React.Fragment>
