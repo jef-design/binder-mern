@@ -40,9 +40,10 @@ const PostCard = () => {
        logOutUser();
        
     }
+    console.log(PostData)
    
     return (
-        <div className="mt-5">
+        <div className="mt-5 relative">
             {PostData &&
                 PostData?.posts.map(post => {
                     return (
@@ -57,6 +58,7 @@ const PostCard = () => {
                                 image={post.image}
                                 likes={post.likes}
                                 comments={post.comments}
+                                date={post.createdAt}
                                 userLogged={userLogged}
                             />
                         </React.Fragment>

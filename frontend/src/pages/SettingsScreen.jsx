@@ -5,9 +5,9 @@ import AsideMenu from "../layouts/AsideMenu";
 const SettingsScreen = () => {
     const {user} = useStore()
     return (
-        <main className='relative grid grid-cols-4 gap-2 mt-3 w-full xl:grid-cols-2 sm:grid-cols-1'>
+        <main className='relative mt-3 w-full xl:grid-cols-2 sm:grid-cols-1'>
             <AsideMenu/>
-            <div className="max-w-[680px] w-full mx-auto col-span-2 bg-white px-4 py-2 rounded-sm">
+            <div className="max-w-[680px] w-full h-full mx-auto col-span-2 bg-white px-4 py-2 rounded-sm">
                 <h2 className=" font-bold text-lg">Manage Account</h2>
                 <div className=" mt-3">
                     <p className=" font-[600]">Name</p>

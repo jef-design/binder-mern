@@ -19,7 +19,7 @@ const FriendSuggestion = () => {
     const filteredUser = users?.filter((u) => u._id !== userLoggedIn)
   
     return (
-        <div className="sm:hidden">
+        <div className="bg-white fixed right-0 top-0 mt-10 px-4 pt-5 max-w-[350px] h-full w-full sm:hidden">
             <Search/>
             <div className=" bg-white p-3 rounded-md shadow-md">
             <h3 className="font-bold my-2">People in binder you might follow</h3>

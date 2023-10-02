@@ -9,13 +9,15 @@ import { BackspaceIcon } from "@heroicons/react/24/outline";
 
 
 const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
+
+    console.log('modal render')
     const queryClient = useQueryClient()
     const {user} = useStore()
    
     const [username, setUsername] = useState(user.username)
     const [image, setImage] = useState(null);
     const [prevImage, setPrevImage] = useState(null);
-    console.log(image)
+    
     const [name, setName] = useState(user.name)
     const [email, setEmail] = useState(user.email)
     const [password, setPassword] = useState('')
@@ -176,4 +178,4 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
     );
 };
 
-export default EditProfileModal;
+export default React.memo(EditProfileModal);

@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
 import axiosInstance from '../services/axiosInstance'
 import { Link } from 'react-router-dom'
-import { UserCircleIcon } from "@heroicons/react/24/solid";
+import { UserCircleIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 const Search = () => {
     const [term, setTerm] = useState('')
@@ -30,14 +30,15 @@ const Search = () => {
          
         // }   
     }
-    console.log(dataSearch)
+
   return (
     <div className=' bg-white p-2 rounded-md shadow-sm mb-5'>
-        <div>
-            <input value={term} className='px-3 py-1 border w-full rounded-sm' type="text" onChange={searchHandler} placeholder='Search Binder' />
+        <div className=' border w-full flex items-center px-1 rounded-2xl bg-gray-100'>
+        <MagnifyingGlassIcon class="h-6 w-6 text-gray-700" />
+            <input value={term} className='px-3 py-1 bg-transparent text-gray-700 outline-none' type="text" onChange={searchHandler} placeholder='Search Binder' />
         </div>
         {dataSearch?.length == 0 && (<div className=' mt-2'>No results found for "{term}"</div>)}
-        <div className=' p-1 mt-3'>
+        <div className=' p-1 mt-3 z-10'>
             {dataSearch && dataSearch.map((user) => {
                 return(
                     <Link to={`/profile/${user._id}`} className=' flex mb-2 gap-4 items-center' key={user._id}>

@@ -1,12 +1,12 @@
 import {useParams} from "react-router-dom";
-import axios from "axios";
-import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
 import useStore from "../services/useStore";
+import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
+import React,{ useState, useCallback } from "react";
+
 import PostPlaceholder from "../components/PostPlaceholder";
 import PostCards from "../components/PostCards";
 import ProfilePlaceHolder from "../components/ProfilePlaceHolder";
 import EditProfileModal from "../components/EditProfileModal";
-import React,{ useState } from "react";
 import FollowButton from "../components/FollowButton";
 import axiosInstance from "../services/axiosInstance";
 
@@ -16,6 +16,7 @@ const ProfileDetails = () => {
     const currentUserLogId = user._id
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false)
+   
  
 
     const {data: userDetails} = useQuery({
@@ -43,7 +44,7 @@ const ProfileDetails = () => {
         },
     });
 
-    const unFollowHandler = () => {
+    const unFollowHandler =() => {
         const unfollowerID = {id: currentUserLogId};
         mutateUnfollow(unfollowerID);
     };
@@ -56,7 +57,15 @@ const ProfileDetails = () => {
         queryFn: () => axiosInstance.get(`/api/binder/user/post/${params.userID}`).then(res => res.data),
         
     });
-    console.log(UserPost)
+   
+      const modalHandler = useCallback(() => {
+        setIsOpen(true)
+    }, [])
+
+    const modalCloseHandlers = useCallback(() => {
+        setIsOpen(false)
+    }, [])
+
     if (userPostLoader) {
         return (
             <>
@@ -64,18 +73,14 @@ const ProfileDetails = () => {
               <PostPlaceholder/>
               <PostPlaceholder/>
               <PostPlaceholder/>
+              <PostPlaceholder/>
             </>
         );
     }
-    const modalHandler = () => {
-        setIsOpen(true)
-    }
-    const modalCloseHandler = () => {
-        setIsOpen(false)
-    }
+  
     return (
         <div className="max-w-[780px] w-full mx-auto p-3 pt-7 border rounded-md bg-white">
-            <EditProfileModal currentUserLogId={currentUserLogId} status={isOpen} modalCloseHandler={modalCloseHandler} />
+            <EditProfileModal currentUserLogId={currentUserLogId} status={isOpen} modalCloseHandler={modalCloseHandlers} />
             {userDetails?.user.map(user => {
                 return (
                     <React.Fragment key={user._id}>

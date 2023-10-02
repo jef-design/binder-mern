@@ -1,14 +1,16 @@
 import React, {useState} from "react";
 import axios from "axios";
-import {PhotoIcon, XMarkIcon} from "@heroicons/react/24/outline";
+import {PhotoIcon, XMarkIcon, PaperClipIcon} from "@heroicons/react/24/outline";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {Oval} from "react-loader-spinner";
 import axiosInstance from "../services/axiosInstance";
+import useStore from '../services/useStore'
 
 const PostCreator = () => {
     const [caption, setCaption] = useState("");
     const [image, setImage] = useState(null);
     const [prevImage, setPrevImage] = useState(null);
+    const {user} = useStore()
 
 
     const queryClient = useQueryClient();
@@ -46,21 +48,25 @@ const PostCreator = () => {
 
     return (
         <div>
-            <div className=" bg-white rounded-md px-4 py-2 shadow-md">
+            <div className=" bg-white rounded-md px-4 py-2 shadow-md sticky left-0 top-0">
                 <span className=" font-bold">Create Post</span>
                 <form onSubmit={submitHandler}>
-                    <div className="my-2">
+                    <div className="my-2 flex items-center border rounded-3xl overflow-hidden px-1">
+                        <div>
+                            <img className="h-9 w-9 rounded-full" src={user?.profile_image} alt="sd" />
+                        </div>
                         <input
                             value={caption}
                             onChange={e => {
                                 setCaption(e.target.value);
                             }}
-                            className="border w-full p-2 bg-gray-100"
+                            className="p-2 outline-none w-full"
                             type="text"
                             placeholder="Share your stories"
                         />
                     </div>
                     <div className="flex justify-between items-center">
+                        <div className="flex">
                         <div>
                             <label htmlFor="fileInput" id="customFileLabel">
                                 <div className="flex items-center cursor-pointer border-r px-5">
@@ -70,10 +76,15 @@ const PostCreator = () => {
                             </label>
                             <input accept="image/*,video/*" type="file" id="fileInput" onChange={handleImageChange} className=" hidden" />
                         </div>
+                        <div className="flex items-center cursor-pointer border-r px-5">
+                            <PaperClipIcon class="h-6 w-6 text-red-500" />
+                            <span className=" text-sm">File</span>
+                        </div>
+                        </div>
                         <button
                             style={{opacity: caption || prevImage ? '1' : '0.5'}}
                             disabled={caption || prevImage ? false : true}
-                            className=" bg-gray-900 py-1 px-3 text-white rounded-sm"
+                            className=" bg-gray-900 py-1 px-3 text-white rounded-3xl"
                             onClick={submitHandler}
                         >
                             Post

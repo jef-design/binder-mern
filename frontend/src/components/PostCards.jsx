@@ -6,14 +6,22 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from '../services/axiosInstance'
 import useStore from "../services/useStore";
 import {Comment} from "react-loader-spinner";
+//
+import TimeAgo from 'javascript-time-ago'
 
-const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comments,userLogged}) => {
+import en from 'javascript-time-ago/locale/en.json'
+import ru from 'javascript-time-ago/locale/ru.json'
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(ru)
+import ReactTimeAgo from 'react-time-ago'
+
+const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comments,userLogged,date}) => {
     const {user} = useStore();
     const queryClient = useQueryClient();
     const [comment, setComment] = useState('')
     const userProfile = user.profile_image
-    
-    console.log(userID)
+
     //delete handler
     const {mutate} = useMutation({
         mutationKey: ["deletepost"],
@@ -91,9 +99,15 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                 <div className="flex items-center gap-2">
                     {!profileImage?.url && <UserCircleIcon className="h-9 w-9 text-gray-500" />}
                     {profileImage && (<img className="h-9 w-9 rounded-full" src={profileImage?.url} alt="" /> )}
+                    <div>
                     <Link to={`/profile/${userID._id}`}>
                         <span className=" font-[500]">{name}</span>
                     </Link>
+                        <div className=" text-xs text-gray-600">
+                        <ReactTimeAgo date={date} locale="en-US"/>
+                        </div>
+                    </div>
+                    
                 </div>
                 {user._id === userID._id && (
                     <div className=" cursor-pointer" onClick={deleteHandler}>
@@ -112,19 +126,19 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                 <div className="flex items-center gap-1">
                     {filteredLiked == 0 ? (
                         <>
-                            <HeartIcon onClick={likeHandler} className="h-6 w-6 text-blue-500 cursor-pointer" />
+                            <HeartIcon onClick={likeHandler} className="h-8 w-8 text-blue-500 cursor-pointer" />
                             <span className=" text-xs">{likes.length} {likes.length <= 1 ? 'like' : 'likes'}</span>
                         </>
                     ) : (
                         <>
-                            <HeartIconSolid onClick={unLikeHandler} className="h-6 w-6 text-blue-500 cursor-pointer" />
+                            <HeartIconSolid onClick={unLikeHandler} className="h-8 w-8 text-blue-500 cursor-pointer" />
                             <span className=" text-xs">{likes.length}  {likes.length <= 1 ? 'like' : 'likes'}</span>
                         </>
                     )}
                 
                 </div>
                 <div className="flex items-center gap-1">
-                    <ChatBubbleLeftIcon className="h-6 w-6 text-gray-500" />{" "}
+                    <ChatBubbleLeftIcon className="h-8 w-8 text-gray-500" />{" "}
                
                     <span className=" text-xs">{comments.length} {comments.length <= 1 ? 'comment' : 'comments'}</span>
                 </div>
