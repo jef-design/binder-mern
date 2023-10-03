@@ -7,11 +7,13 @@ import axiosInstance from '../services/axiosInstance'
 import useStore from "../services/useStore";
 import {Comment} from "react-loader-spinner";
 import ReactTimeAgo from 'react-time-ago'
+import AlertDialog from "./AlertDialog";
 
 const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comments,userLogged,date}) => {
     const {user} = useStore();
     const queryClient = useQueryClient();
     const [comment, setComment] = useState('')
+    const [open, setOpen] = useState(false);
     const userProfile = user.profile_image
 
     //delete handler
@@ -84,7 +86,13 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
           
         },
     });
-
+    const handleClickOpen = () => {
+        setOpen(true);
+      };
+      const handleClose = () => {
+        setOpen(false);
+      };
+    
     return (
         <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md mb-4 shadow-md">
             <div className="flex justify-between">
@@ -101,8 +109,9 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     </div>
                     
                 </div>
+                <AlertDialog deleteHandler={deleteHandler} open={open} handleClose={handleClose} />
                 {user._id === userID._id && (
-                    <div className=" cursor-pointer" onClick={deleteHandler}>
+                    <div className=" cursor-pointer" onClick={handleClickOpen}>
                         <TrashIcon className="h-6 w-6 text-gray-500" />
                     </div>
                 )}

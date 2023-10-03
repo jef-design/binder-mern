@@ -6,8 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog({deleteHandler,open, handleClose}) {
-
+const AlertDialog = ({deleteHandler,open, handleClose}) => {
+  console.log('alert dialog render')
 
   return (
     <div>
@@ -35,3 +35,4 @@ export default function AlertDialog({deleteHandler,open, handleClose}) {
     </div>
   );
 }
+export default React.memo(AlertDialog)

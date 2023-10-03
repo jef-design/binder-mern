@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axios from 'axios'
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import useStore from '../services/useStore'
@@ -12,6 +12,7 @@ const SignUp = () => {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [visible, setVisible] = useState('password')
     const [error, setError] = useState('')
     const navigate = useNavigate()
     const {setLogInUser} = useStore()
@@ -58,9 +59,13 @@ const SignUp = () => {
                 <label htmlFor="email">Email</label>
                 <input style={{border: isError && '1px solid red'}} value={email} className='border p-2 mt-2' onChange={(e) => {setEmail(e.target.value)}} type="email" />
             </div>
-            <div className='flex flex-col mb-2'>
+            <div className='flex flex-col'>
                 <label htmlFor="password">Password</label>
-                <input style={{border: isError && '1px solid red'}} value={password} className='border p-2 mt-2' onChange={(e) => {setPassword(e.target.value)}} type="password" />
+                <div  className='border my-2 flex items-center'>
+                <input className='p-2 w-full outline-none' onChange={(e) => {setPassword(e.target.value)}} type={visible} />
+                 {visible === 'password' && (<EyeSlashIcon onClick={()=> setVisible('text')} className="h-6 w-6 text-gray-500 mr-1" />)}
+                 {visible === 'text' && <EyeIcon onClick={()=> setVisible('password')} className="h-6 w-6 text-gray-500 mr-1" />}
+                </div>
             </div>
            < button style={{opacity: isLoading && '0.5'}} className='flex gap-2 items-center justify-center p-2 bg-gray-900 text-white text-center mt-2 rounded-sm w-full'>
                 {isLoading ? 'Registering' : 'Register '}
@@ -79,7 +84,9 @@ const SignUp = () => {
             </button>
             {error && (<div className=' text-center p-1 border text-red-600 border-red-600 bg-red-100 text-sm my-2'>{error.error}</div>)}
         </form>
-        Already have account? sign in <Link to={`http://localhost:5173/login`}>here</Link>
+       <div className="mt-3 text-sm">
+       Already have an account? sign in <Link to={import.meta.env.PROD ? import.meta.env.VITE_CLIENT_BASE_URL : import.meta.env.VITE_DEV_CLIENT_BASE_URL + '/login'}>here</Link>
+       </div>
     </div>
   )
 }

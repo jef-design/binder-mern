@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import axios from 'axios'
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import {Link, useNavigate} from 'react-router-dom'
 import { useMutation } from '@tanstack/react-query'
 import useStore from '../services/useStore'
@@ -10,6 +10,7 @@ const LogIn = () => {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [visible, setVisible] = useState('password')
     const [error, setError] = useState('')
     const navigate = useNavigate()
 
@@ -52,7 +53,11 @@ const LogIn = () => {
             </div>
             <div className='flex flex-col'>
                 <label htmlFor="password">Password</label>
-                <input className='border p-2 my-2' onChange={(e) => {setPassword(e.target.value)}} type="text" />
+                <div  className='border my-2 flex items-center'>
+                <input className='p-2 w-full outline-none' onChange={(e) => {setPassword(e.target.value)}} type={visible} />
+                 {visible === 'password' && (<EyeSlashIcon onClick={()=> setVisible('text')} className="h-6 w-6 text-gray-500 mr-1" />)}
+                 {visible === 'text' && <EyeIcon onClick={()=> setVisible('password')} className="h-6 w-6 text-gray-500 mr-1" />}
+                </div>
             </div>
             <button style={{opacity: isLoading && '0.5'}} className='flex gap-2 items-center justify-center p-2 bg-gray-900 text-white text-center mt-2 rounded-sm w-full'>
                 {isLoading ? 'Signing in' : 'Sign in '}
@@ -71,7 +76,11 @@ const LogIn = () => {
             </button>
         </form>
         {error && (<div className=' text-center p-1 border text-red-600 border-red-600 bg-red-100 text-sm my-2'>{error.error}</div>)}
-        <Link className=' text-sm underline' to={`http://localhost:5173/signup`}>Sign up here</Link>
+        
+        <div className="mt-3 text-sm">
+        <Link className=' text-sm underline' to={import.meta.env.PROD ? import.meta.env.VITE_CLIENT_BASE_URL : import.meta.env.VITE_DEV_CLIENT_BASE_URL + '/signup'}>Sign up here</Link>
+        </div>
+        
     </div>
   )
 }
