@@ -109,7 +109,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     </div>
                     
                 </div>
-                <AlertDialog deleteHandler={deleteHandler} open={open} handleClose={handleClose} />
+                <AlertDialog dialogMessage={`Are you sure you want to delete this post?`} deleteHandler={deleteHandler} open={open} handleClose={handleClose} />
                 {user._id === userID._id && (
                     <div className=" cursor-pointer" onClick={handleClickOpen}>
                         <TrashIcon className="h-6 w-6 text-gray-500" />

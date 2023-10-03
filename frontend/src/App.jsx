@@ -14,6 +14,7 @@ import TimeAgo from 'javascript-time-ago'
 
 import en from 'javascript-time-ago/locale/en.json'
 import ru from 'javascript-time-ago/locale/ru.json'
+import MobileMenu from './layouts/MobileMenu'
 
 TimeAgo.addDefaultLocale(en)
 TimeAgo.addLocale(ru)
@@ -36,6 +37,7 @@ function App() {
           <Route path='/friends' element={user ? <FriendsScreeen/> : <Navigate to={'/login'} />} />
           <Route path='/settings' element={user ? <SettingsScreen/> : <Navigate to={'/login'} />} />
         </Routes>
+        <MobileMenu/>
      </BrowserRouter>
     </div>
   )

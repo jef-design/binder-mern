@@ -127,7 +127,13 @@ const upDateUser = async (req, res) => {
       },
       { new: true }
     );
-    return res.status(200).json(user);
+    return res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name,
+      profile_image: user.profile_image.url,
+    });
   }
 
   try {
@@ -151,8 +157,13 @@ const upDateUser = async (req, res) => {
       },
       { new: true }
     );
-
-    res.status(200).json(user);
+    res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name,
+      profile_image: user.profile_image.url,
+    });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }

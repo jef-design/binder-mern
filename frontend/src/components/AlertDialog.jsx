@@ -6,8 +6,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const AlertDialog = ({deleteHandler,open, handleClose}) => {
-  console.log('alert dialog render')
+const AlertDialog = ({deleteHandler,open, handleClose,dialogMessage}) => {
+ 
 
   return (
     <div>
@@ -18,11 +18,12 @@ const AlertDialog = ({deleteHandler,open, handleClose}) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {"Caution"}
+          {dialogMessage}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-           This account will be permanently deleted.
+          This action cannot be
+          undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>

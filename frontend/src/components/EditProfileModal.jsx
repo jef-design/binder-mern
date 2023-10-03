@@ -10,9 +10,8 @@ import { BackspaceIcon } from "@heroicons/react/24/outline";
 
 const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
 
-    console.log('modal render')
     const queryClient = useQueryClient()
-    const {user} = useStore()
+    const {user,setLogInUser} = useStore()
    
     const [username, setUsername] = useState(user.username)
     const [image, setImage] = useState(null);
@@ -27,16 +26,18 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
    
     //delete
     // const dataUpdate = {username, name, email, bio}
-    const {mutate,isLoading, mutateAsync} = useMutation({
+    const {mutate,isLoading} = useMutation({
         mutationFn: formData => 
         axiosInstance.patch(`/api/binder/user/${currentUserLogId}`, formData,{
             headers: {
                 "Content-Type": "multipart/form-data",
             },
         }).then(res => res.data),
-        onSuccess: () => {
+        onSuccess: (formData) => {
             queryClient.invalidateQueries("userinfo", currentUserLogId)
             modalCloseHandler(false)
+            setLogInUser(formData)
+            console.log(formData)
         }
     })
 
@@ -50,9 +51,9 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
         formData.append("email", email);
         formData.append("bio", bio);
 
-        for (var pair of formData.entries()) {
-            console.log(pair[0]+ ' - ' + pair[1]); 
-        }
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0]+ ' - ' + pair[1]); 
+        // }
         mutate(formData);
       
     }
