@@ -45,7 +45,7 @@ const MobileMenu = () => {
       ];
     
   return (
-    <div className='fixed bottom-0 left-0 right-0 bg-white'>
+    <div className='fixed bottom-0 left-0 right-0 bg-white hidden xl:block'>
         <div className='grid grid-cols-5 gap-1 border-t drop-shadow-md'>
         {links.map((link, i) => {
           return (
