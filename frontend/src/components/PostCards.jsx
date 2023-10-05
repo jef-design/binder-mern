@@ -122,13 +122,13 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                 {user._id === userID?._id && (
                     <div className=" cursor-pointer" onClick={handleClickOpen}>
                         <TrashIcon className="h-6 w-6 text-gray-500" />
-                        <EllipsisHorizontalIcon class="h-6 w-6 text-gray-500" />
+                        <EllipsisHorizontalIcon className="h-6 w-6 text-gray-500" />
                     </div>
                 )}
             </div>
             <span className="font-[400] text-sm">{caption}</span>
             <div className="h-auto -mx-4">
-                <ImageModal imageUrl={image.url} modalOpen={openModal} handleCloseModal={handleCloseModal}  />
+                <ImageModal imageUrl={image?.url} modalOpen={openModal} handleCloseModal={handleCloseModal}  />
                 {image && image?.url?.endsWith(".jpg") && (
                     <img onClick={handleClickOpenModal} loading="lazy" className="max-h-[710px] w-full cursor-pointer object-cover" src={image?.url} alt={caption} />
                 )}

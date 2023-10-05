@@ -54,7 +54,7 @@ const PostCreator = () => {
                 <form onSubmit={submitHandler}>
                     <div className="my-4 flex items-center border rounded-3xl overflow-hidden px-1">
                         <div>
-                            {user.profile_image && (<img className="h-9 w-9 rounded-full object-cover" src={user?.profile_image} alt="sd" />)}
+                            {user.profile_image && (<img className="h-9 w-9 rounded-full object-contain" src={user?.profile_image} alt="sd" />)}
                             {!user.profile_image && (<UserCircleIcon className="h-6 w-6 rounded-full text-gray-500" />)}
                         </div>
                         <input

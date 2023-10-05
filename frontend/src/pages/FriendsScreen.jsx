@@ -17,10 +17,10 @@ const FriendsScreeen = () => {
         queryFn: () => axiosInstance.get(`/api/binder/user/${user._id}`).then(res => res.data),
         refetchInterval: 10000,
     });
-    console.log(userDetails)
+    
     const userInfo = userDetails?.user[0]
     const {follower} = userInfo || {}
-
+    console.log(follower)
   return (
     <main className=" mt-3 w-full">
       <AsideMenu />
