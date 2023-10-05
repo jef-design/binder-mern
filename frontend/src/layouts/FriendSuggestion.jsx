@@ -14,6 +14,7 @@ const FriendSuggestion = () => {
     const {data: users, isLoading} = useQuery({
         queryKey: ["getusers"],
         queryFn: () => axiosInstance.get("/api/binder/users").then(res => res.data.users),
+        refetchInterval: 10000,
     });
 
     const filteredUser = users?.filter((u) => u._id !== userLoggedIn)

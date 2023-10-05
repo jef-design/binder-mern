@@ -15,7 +15,9 @@ const FriendsScreeen = () => {
     const {data: userDetails} = useQuery({
         queryKey: ["userinfo", user._id],
         queryFn: () => axiosInstance.get(`/api/binder/user/${user._id}`).then(res => res.data),
+        refetchInterval: 10000,
     });
+    console.log(userDetails)
     const userInfo = userDetails?.user[0]
     const {follower} = userInfo || {}
 
