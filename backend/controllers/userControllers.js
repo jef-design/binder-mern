@@ -38,7 +38,7 @@ const refreshTokenRoute = async (req, res) => {
   try {
     const decoded = jwt.verify(authToken, process.env.JWT_REFRESH_SECRET);
     const user = await User.findById(decoded._id);
-    req.user - user
+    // req.user - user
 
     if (!user) {
       throw new Error('User not found');
