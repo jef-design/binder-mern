@@ -28,7 +28,7 @@ const Header = ({toggleTheme,themes}) => {
       <div className="flex gap-2 items-center">
         <div className=" cursor-pointer" onClick={toggleTheme}>
         {themes === 'light' && (<MoonIcon className="h-6 w-6 text-gray-500" />)}
-        {themes === 'dark' && ( <SunIcon className="h-6 w-6 text-gray-500" />)}
+        {themes === 'dark' && ( <SunIcon className="h-6 w-6 text-white" />)}
        
         </div>
         {user && (

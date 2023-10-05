@@ -48,7 +48,7 @@ const SettingsScreen = () => {
                     <p className=" font-[600]">Email</p>
                     <span>{user.email}</span>
                 </div>
-                <div onClick={handleClickOpen} className="mt-4 p-2 border inline-block rounded-sm text-red-400 cursor-pointer">
+                <div onClick={handleClickOpen} className="mt-4 p-2 border inline-block rounded-sm text-red-400 cursor-pointer dark:border-gray-500">
                     Delete Account Permanently
                 </div>
                 <AlertDialog dialogMessage={`Are you sure you want to delete this account?`} deleteHandler={deleteHandler} open={open} handleClose={handleClose} />

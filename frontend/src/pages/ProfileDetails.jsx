@@ -104,6 +104,10 @@ const ProfileDetails = () => {
                                 <div className="mt-4">
                                     <span className=" text-gray-600">{user.follower.length} Follower</span>
                                 </div>
+                                <div>
+                                    {user?.status && (<><span className=" text-xs">Online </span><span className="h-2 w-2 rounded-full bg-green-500 inline-block"></span></>)}
+                                   
+                                </div>
                             </div>
                             <div className="w-[160px] h-[160px] border-2 rounded-full">
                                 <img onClick={handleClickOpenModal} className="w-[160px] h-[160px] cursor-pointer rounded-full object-cover" src={user?.profile_image?.url} alt="" />
@@ -112,7 +116,7 @@ const ProfileDetails = () => {
                         </div>
                         <div className="flex gap-2 justify-between mt-4 font-[500]">
                             {params.userID === currentUserLogId ? (
-                                <button onClick={modalHandler} className="border w-full py-2 rounded-md">Edit Profile</button>
+                                <button onClick={modalHandler} className="border w-full py-2 rounded-md dark:border-gray-500">Edit Profile</button>
                             ) : (
                                 <FollowButton 
                                     follower={user.follower}
@@ -123,12 +127,12 @@ const ProfileDetails = () => {
                                     unfollowLoader={unfollowLoader}
                                      />
                             )}
-                            <button className="border w-full py-2 rounded-md">Share Profile</button>
+                            <button className="border w-full py-2 rounded-md dark:border-gray-500">Share Profile</button>
                         </div>
                     </React.Fragment>
                 );
             })}
-            <div className="mt-8 border-t">
+            <div className="mt-8 border-t dark:border-gray-500">
                 <div className=" text-lg my-2">Posts</div>
                         {UserPost &&
                             UserPost?.posts.map(post => {

@@ -155,7 +155,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     <span className=" text-xs">{comments.length} {comments.length <= 1 ? 'comment' : 'comments'}</span>
                 </div>
             </div>
-            <div className="px-3 mt-1 border-t pt-3">
+            <div className="px-3 mt-1 border-t pt-3 ">
 
                 {comments.map((com,i) => {
                     return(
