@@ -162,7 +162,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                         <div key={i} className="flex gap-3 items-center mb-3">
                             {!com.userID?.profile_image?.url && <UserCircleIcon className="h-7 w-7 text-gray-500" />}
                             {com.userID && (<img className="h-7 w-7 rounded-full object-cover" src={com.userID.profile_image?.url} alt="" /> )}
-                            <div className=" bg-gray-100 w-full p-2 rounded-md">
+                            <div className=" bg-gray-100 w-full p-2 rounded-md dark:bg-[#3a3b3c] dark:border-none">
                                 <div className=" text-xs font-[600]">
                                 {com.userID?.name}
                                 </div >

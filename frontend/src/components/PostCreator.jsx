@@ -128,7 +128,7 @@ const PostCreator = () => {
                 </form>
             </div>
             {isLoading && (
-                <div className=" flex items-center justify-between p-3 my-2 bg-white rounded-md">
+                <div className=" flex items-center justify-between p-3 my-2 bg-white rounded-md dark:bg-dark-main dark:text-white">
                     <span>Posting...</span>
                     <Oval
                         height={30}

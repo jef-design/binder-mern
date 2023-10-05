@@ -32,6 +32,12 @@ export default {
         // 'dark-main': '#121212',
         // 'dark-secondary': '#212124',
       },
+      textColor: {
+        'dark-main': '#212124',
+        'dark-secondary': '#121212',
+        // 'dark-main': '#121212',
+        // 'dark-secondary': '#212124',
+      },
     },
   },
   plugins: [],

@@ -91,7 +91,7 @@ const ProfileDetails = () => {
         setOpenModal(false);
       };
     return (
-        <div className="max-w-[780px] w-full mx-auto p-3 pt-7 border rounded-md bg-white">
+        <div className="max-w-[780px] w-full mx-auto p-3 pt-7 border rounded-md bg-white dark:bg-dark-main dark:text-white dark:border-none duration-300 ease-in-out">
             <EditProfileModal currentUserLogId={currentUserLogId} status={isOpen} modalCloseHandler={modalCloseHandlers} />
             {userDetails?.user.map(user => {
                 return (

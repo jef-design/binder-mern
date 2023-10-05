@@ -37,7 +37,7 @@ const SettingsScreen = () => {
         <main className='relative mt-3'>
            
             <AsideMenu/>
-            <div className="max-w-[680px] w-full h-full mx-auto col-span-2 bg-white px-4 py-2 rounded-sm">
+            <div className="max-w-[680px] w-full h-full mx-auto col-span-2 bg-white px-4 py-2 rounded-sm dark:bg-dark-main dark:text-white dark:border-none duration-300 ease-in-out">
                 <h2 className=" font-bold text-lg">Manage Account</h2>
                 {/* <button onClick={()=> {setinc(inc + 1)}}>inc: {inc}</button> */}
                 <div className=" mt-3">

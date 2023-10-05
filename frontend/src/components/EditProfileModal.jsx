@@ -73,7 +73,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
        <div style={{display: status ? 'flex' : 'none'}} className='fixed z-10 top-0 left-0 flex items-center justify-center accent-gray-500/100 h-screen w-screen'>
         <div onClick={modalCloseHandler}  className='flex justify-center items-center w-screen h-screen fixed bottom-0 left-0 right-0 top-0 bg-black bg-opacity-60'></div>
          <div className=" rounded-md mb-3 border-b py-2 px-5 max-w-[500px] w-full bg-white
-         absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+         absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 dark:bg-dark-main dark:text-white dark:border-none duration-300 ease-in-out">
             
              <div onClick={modalCloseHandler} className=' absolute right-4 top-2 cursor-pointer'>
              <BackspaceIcon className="h-9 w-9 text-red-500" />
@@ -91,7 +91,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
                         <label className=' font-[500] text-sm' htmlFor="username">Username</label>
                         <input
                             value={username}
-                            className="border-2 p-2 mt-1 text-sm text-gray-500 focus:border-blue-500 outline-none"
+                            className="border-2 p-2 mt-1 text-sm text-gray-500 focus:border-blue-500 outline-none dark:bg-[#3a3b3c] dark:border-none"
                             onChange={e => {
                                 setUsername(e.target.value);
                             }}
@@ -102,7 +102,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
                     <label className=' font-[500] text-sm' htmlFor="name">Name</label>
                     <input
                         value={name}
-                        className="border p-2 mt-1 text-sm text-gray-500"
+                        className="border p-2 mt-1 text-sm text-gray-500 dark:bg-[#3a3b3c] dark:border-none"
                         onChange={e => {
                             setName(e.target.value);
                         }}
@@ -116,7 +116,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
                     <label className=' font-[500] text-sm' htmlFor="email">Email</label>
                     <input
                         value={email}
-                        className="border p-2 mt-1 text-sm text-gray-500"
+                        className="border p-2 mt-1 text-sm text-gray-500 dark:bg-[#3a3b3c] dark:border-none"
                         onChange={e => {
                             setEmail(e.target.value);
                         }}
@@ -127,7 +127,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
                     <label className=' font-[500] text-sm' htmlFor="bio">Bio</label>
                     <input
                         value={bio}
-                        className="border p-2 mt-1 text-sm text-gray-500"
+                        className="border p-2 mt-1 text-sm text-gray-500 dark:bg-[#3a3b3c] dark:border-none" 
                         onChange={e => {
                             setBio(e.target.value);
                         }}
@@ -139,7 +139,7 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
                     <label className=' font-[500] text-sm' htmlFor="password">Password</label>
                     <input
                         value={password}
-                        className="border p-2 mt-1 text-sm text-gray-500"
+                        className="border p-2 mt-1 text-sm text-gray-500 dark:bg-[#3a3b3c] dark:border-none"
                         onChange={e => {
                             setPassword(e.target.value);
                         }}
