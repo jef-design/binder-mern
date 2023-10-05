@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import useStore from "../services/useStore";
 import {useQuery, useMutation, useQueryClient} from "@tanstack/react-query";
-import React,{ useState, useCallback } from "react";
+import React,{ useState,useEffect, useCallback } from "react";
 
 import PostPlaceholder from "../components/PostPlaceholder";
 import PostCards from "../components/PostCards";
@@ -9,6 +9,7 @@ import ProfilePlaceHolder from "../components/ProfilePlaceHolder";
 import EditProfileModal from "../components/EditProfileModal";
 import FollowButton from "../components/FollowButton";
 import axiosInstance from "../services/axiosInstance";
+import ImageModal from "../components/ImageModal";
 
 
 const ProfileDetails = () => {
@@ -17,8 +18,12 @@ const ProfileDetails = () => {
     const currentUserLogId = user._id
     const queryClient = useQueryClient();
     const [isOpen, setIsOpen] = useState(false)
-   
- 
+    const [openModal, setOpenModal] = useState(false);
+   //
+   useQuery({
+    queryKey: ['refreshToken'],
+    queryFn: () => axiosInstance.get(`/api/binder/refreshToken`).then(res => res.data)
+});
 
     const {data: userDetails} = useQuery({
         queryKey: ["userinfo", params.userID],
@@ -78,7 +83,12 @@ const ProfileDetails = () => {
             </>
         );
     }
-  
+    const handleClickOpenModal = () => {
+        setOpenModal(true);
+      };
+      const handleCloseModal = () => {
+        setOpenModal(false);
+      };
     return (
         <div className="max-w-[780px] w-full mx-auto p-3 pt-7 border rounded-md bg-white">
             <EditProfileModal currentUserLogId={currentUserLogId} status={isOpen} modalCloseHandler={modalCloseHandlers} />
@@ -94,9 +104,10 @@ const ProfileDetails = () => {
                                     <span className=" text-gray-600">{user.follower.length} Follower</span>
                                 </div>
                             </div>
-                            <div className="w-[120px] h-[120px] rounded-full border-2">
-                                <img className=" w-full h-full rounded-full" src={user?.profile_image?.url} alt="" />
+                            <div className="w-[160px] h-[160px] border-2 rounded-full">
+                                <img onClick={handleClickOpenModal} className="w-[160px] h-[160px] cursor-pointer rounded-full object-cover" src={user?.profile_image?.url} alt="" />
                             </div>
+                            <ImageModal imageUrl={user?.profile_image?.url} modalOpen={openModal} handleCloseModal={handleCloseModal} />
                         </div>
                         <div className="flex gap-2 justify-between mt-4 font-[500]">
                             {params.userID === currentUserLogId ? (

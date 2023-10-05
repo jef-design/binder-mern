@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import {UserCircleIcon, HeartIcon as HeartIconSolid} from "@heroicons/react/24/solid";
-import {HeartIcon, ChatBubbleLeftIcon, TrashIcon} from "@heroicons/react/24/outline";
+import {HeartIcon, ChatBubbleLeftIcon, TrashIcon, EllipsisHorizontalIcon} from "@heroicons/react/24/outline";
 import {Link} from "react-router-dom";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import axiosInstance from '../services/axiosInstance'
@@ -8,12 +8,14 @@ import useStore from "../services/useStore";
 import {Comment} from "react-loader-spinner";
 import ReactTimeAgo from 'react-time-ago'
 import AlertDialog from "./AlertDialog";
+import ImageModal from './ImageModal'
 
 const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comments,userLogged,date}) => {
     const {user} = useStore();
     const queryClient = useQueryClient();
     const [comment, setComment] = useState('')
     const [open, setOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const userProfile = user.profile_image
 
     //delete handler
@@ -93,14 +95,21 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
         setOpen(false);
       };
     
+      const handleClickOpenModal = () => {
+        setOpenModal(true);
+      };
+      const handleCloseModal = () => {
+        setOpenModal(false);
+      };
+    
     return (
         <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md mb-4 shadow-md">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2">
                     {!profileImage?.url && <UserCircleIcon className="h-9 w-9 text-gray-500" />}
-                    {profileImage && (<img className="h-9 w-9 rounded-full" src={profileImage?.url} alt="" /> )}
+                    {profileImage && (<img className="h-9 w-9 rounded-full object-cover" src={profileImage?.url} alt="" /> )}
                     <div>
-                    <Link to={`/profile/${userID._id}`}>
+                    <Link to={`/profile/${userID?._id}`}>
                         <span className=" font-[500]">{name}</span>
                     </Link>
                         <div className=" text-xs text-gray-600">
@@ -110,16 +119,18 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     
                 </div>
                 <AlertDialog dialogMessage={`Are you sure you want to delete this post?`} deleteHandler={deleteHandler} open={open} handleClose={handleClose} />
-                {user._id === userID._id && (
+                {user._id === userID?._id && (
                     <div className=" cursor-pointer" onClick={handleClickOpen}>
                         <TrashIcon className="h-6 w-6 text-gray-500" />
+                        <EllipsisHorizontalIcon class="h-6 w-6 text-gray-500" />
                     </div>
                 )}
             </div>
             <span className="font-[400] text-sm">{caption}</span>
             <div className="h-auto -mx-4">
+                <ImageModal imageUrl={image.url} modalOpen={openModal} handleCloseModal={handleCloseModal}  />
                 {image && image?.url?.endsWith(".jpg") && (
-                    <img loading="lazy" className="max-h-[710px] w-full" src={image?.url} alt={caption} />
+                    <img onClick={handleClickOpenModal} loading="lazy" className="max-h-[710px] w-full cursor-pointer object-cover" src={image?.url} alt={caption} />
                 )}
                 {image && image?.url?.endsWith(".mp4") && <video controls width="100%" src={image?.url} />}
             </div>
@@ -150,7 +161,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     return(
                         <div key={i} className="flex gap-3 items-center mb-3">
                             {!com.userID?.profile_image?.url && <UserCircleIcon className="h-7 w-7 text-gray-500" />}
-                            {com.userID && (<img className="h-7 w-7 rounded-full" src={com.userID.profile_image?.url} alt="" /> )}
+                            {com.userID && (<img className="h-7 w-7 rounded-full object-cover" src={com.userID.profile_image?.url} alt="" /> )}
                             <div className=" bg-gray-100 w-full p-2 rounded-md">
                                 <div className=" text-xs font-[600]">
                                 {com.userID?.name}
@@ -185,7 +196,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
             </div>
             <div className="flex gap-4 border-t pt-2">
             {!userProfile && <UserCircleIcon className="h-6 w-6 text-gray-500" />}
-                    {userProfile && (<img className="h-6 w-6 rounded-full" src={userProfile} alt="" /> )}
+                    {userProfile && (<img className="h-6 w-6 rounded-full object-cover" src={userProfile} alt="" /> )}
         
               <form className=" w-full" onSubmit={sendComment}>
               <input

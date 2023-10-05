@@ -4,7 +4,7 @@ import { RotatingLines } from "react-loader-spinner";
 const FollowButton = ({follower, currentUserLogId, followHandler, unFollowHandler,followLoader,unfollowLoader}) => {
     console.log(follower, currentUserLogId);
 
-    const filteredFollower = follower.filter(f => f.userID === currentUserLogId);
+    const filteredFollower = follower.filter(f => f.userID?._id === currentUserLogId);
     console.log(filteredFollower);
     return (
         <>

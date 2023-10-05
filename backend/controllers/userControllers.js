@@ -9,97 +9,108 @@ const getDataUri = require('../utils/dataUri');
 
 // Access Token
 const generateToken = (res, _id) => {
-  const jwtExpires = 604800;
-  const createdtoken = jwt.sign({ _id }, process.env.JWT_SECRET, {
+  // const jwtExpires = 900;
+  // const jwtRefreshExpires = 86400;
+  const jwtExpires = '5m';
+  const jwtRefreshExpires = 86400;
+  const accToken = jwt.sign({ _id }, process.env.JWT_SECRET, {
     expiresIn: jwtExpires,
   });
-  //  console.log(createdtoken)
-  const cookieExpires = jwtExpires * 1000;
-  res.cookie('jwt', createdtoken, {
+
+  const refreshToken = jwt.sign({ _id }, process.env.JWT_REFRESH_SECRET, {
+    expiresIn: jwtRefreshExpires,
+  });
+
+  const cookieExpires = jwtRefreshExpires * 1000;
+  res.cookie('jwt', refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENVIRONMENT === 'production' ? true : false,
     sameSite: process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict',
     maxAge: cookieExpires,
   });
- // console.log(process.env.NODE_ENVIRONMENT === 'production' ? true : false, process.env.NODE_ENVIRONMENT === 'production' ? 'none' : 'strict')
-  return createdtoken;
+ 
+  return {accToken, refreshToken};
 };
 
-// Access Token
-const refreshToken = (res, _id) => {
-  if (req.cookies?.jwt) {
-    const refreshToken = req.cookies.jwt;
-
-    // Verifying refresh token
-    jwt.verify(
-      refreshToken,
-      process.env.REFRESH_TOKEN_SECRET,
-      (err, decoded) => {
-        if (err) {
-          // Wrong Refesh Token
-          return res.status(401).json({ message: 'Unauthorized' });
-        } else {
-          // Correct token we send a new access token
-          const refreshTokenJwt = jwt.sign({ _id }, process.env.JWT_SECRET, {
-            expiresIn: '2d',
-          });
-          res.cookie('jwt', refreshTokenJwt, {
-            httpOnly: true,
-            secure: false,
-            sameSite: 'strict',
-            maxAge: cookieExpires,
-          });
-
-          return createdtoken;
-        }
-      }
-    );
-  } else {
-    return res.status(406).json({ message: 'Unauthorized' });
-  }
-};
-
-const signUpUser = async (req, res) => {
-  const { username, name, email, password } = req.body;
+const refreshTokenRoute = async (req, res) => {
+  const authToken = req.cookies.jwt;
 
   try {
-    const user = await User.signup(username, name, email, password);
-    generateToken(res, user._id);
-    res.status(200).json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      name: user.name,
-      profile_image: user.profile_image.url,
-    });
+    const decoded = jwt.verify(authToken, process.env.JWT_REFRESH_SECRET);
+    const user = await User.findById(decoded._id);
+    req.user - user
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+    
+    const { accToken, refreshToken } = generateToken(
+      res,
+      user._id
+    );
+
+    res.json({ accToken, refreshToken });
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    res.status(401).json({ error: 'Invalid refresh token' });
   }
-};
+}
 
 const logInUser = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.login(email, password);
     generateToken(res, user._id);
-    res.status(200).json({
+
+    return res.status(200).json({
       _id: user._id,
       username: user.username,
       email: user.email,
       name: user.name,
       profile_image: user.profile_image.url,
+      status: true,
     });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 };
 
+
+const signUpUser = async (req, res) => {
+  const { username, name, email, password } = req.body;
+
+  try {
+    const user = await User.signup(username, name, email, password);
+    const { accessToken, refreshToken } = generateToken(res, user._id);
+    res.status(200).json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      name: user.name,
+      profile_image: user.profile_image.url,
+      status: false,
+
+    });
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
+
+
 const logOutUser = async (req, res) => {
+  // console.log(req.body)
+const {_id} = req.body
+
+  const statusUser = await User.findByIdAndUpdate(_id, {
+    status: false
+   },
+   { new: true }
+ ).select('status')
+   console.log(statusUser)
   res.cookie('jwt', '', {
     httpOnly: true,
     maxAge: new Date(1),
   });
-  res.status(200).json({ message: 'user logged out' });
+  res.status(200).json({ message: 'user logged out', statusUser });
 };
 
 const getUserDetails = async (req, res) => {
@@ -112,6 +123,7 @@ const getUserDetails = async (req, res) => {
 };
 
 const upDateUser = async (req, res) => {
+ 
   const userId = req.params.id;
   const { username, name, email, bio } = req.body;
   const file = req.file;
@@ -255,5 +267,6 @@ module.exports = {
   deleteUser,
   getUserPost,
   getUsers,
-  refreshToken,
+  refreshTokenRoute
+  
 };

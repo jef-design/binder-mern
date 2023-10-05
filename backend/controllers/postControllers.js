@@ -40,6 +40,7 @@ const createPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
+ 
   const posts = await Posts.find({})
     .sort({ createdAt: -1 })
     .populate({

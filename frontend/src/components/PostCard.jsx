@@ -10,8 +10,15 @@ import useStore from "../services/useStore";
 
 const PostCard = () => {
     const {logOutUser, user} = useStore();
+    const [tokenExpired, setTokenExpired] = useState(false);
+   
     const userLogged = user._id
-        
+    
+    useQuery({
+        queryKey: ['refreshToken'],
+        queryFn: () => axiosInstance.get(`/api/binder/refreshToken`).then(res => res.data)
+    });
+
     const {
         data: PostData,
         isLoading,
@@ -34,12 +41,20 @@ const PostCard = () => {
             </>
         );
     }
-
-    if (error?.response?.data?.message === 'Not Authorized, No token') {
-       alert('Session expired, Please login again.')
-       logOutUser();
+    if (error?.response?.data?.message === "Token Expired") {
+        setTokenExpired(true)
        
-    }
+        
+     }
+     if (tokenExpired) {
+        // alert('Session expired, Please login again.')
+        return logOutUser();
+      }
+    // if (error?.response?.data?.message === 'Not Authorized, No token') {
+    //    alert('Session expired, Please login again.')
+    //    logOutUser();
+       
+    // }
    
    
     return (

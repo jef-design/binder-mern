@@ -32,7 +32,7 @@ const AsideMenu = () => {
       id: 3,
     },
     {
-      pathname: "Friends",
+      pathname: "Followers",
       to: "/friends",
       icon: <UserGroupIcon className="h-6 w-6 text-gray-950" />,
       id: 4,

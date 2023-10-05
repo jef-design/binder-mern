@@ -1,5 +1,5 @@
 const express = require('express')
-const { signUpUser, logInUser, logOutUser,getUserDetails,upDateUser, followUser,UnfollowUser,getUserPost, getUsers, refreshToken, searchBinder, deleteUser } = require('../controllers/userControllers')
+const { signUpUser, logInUser, logOutUser,getUserDetails,upDateUser, followUser,UnfollowUser,getUserPost, getUsers, searchBinder, deleteUser, refreshTokenRoute } = require('../controllers/userControllers')
 const router = express.Router()
 const multer = require('multer');
 
@@ -9,6 +9,7 @@ const upload = multer({ storage });
 const authMiddleware = require('../middleware/authMiddleware')
 
 // router.post('/refresh', refreshToken)
+router.get('/refreshToken',authMiddleware, refreshTokenRoute)
 router.post('/signup', signUpUser)
 router.post('/login', logInUser)
 router.post('/logout', logOutUser)

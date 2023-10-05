@@ -81,8 +81,8 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
             <form className='mt-4' onSubmit={updateHandler}>
                 <div className="flex flex-col mb-2">
                     <div>
-                        {prevImage ? <img className='h-[100px] w-[100px] rounded-full' src={prevImage} alt="" /> :
-                        <img className='h-[100px] w-[100px] rounded-full' src={user.profile_image} alt="" />}
+                        {prevImage ? <img className='h-[140px] w-[140px] rounded-full object-cover' src={prevImage} alt="" /> :
+                        <img className='h-[140px] w-[140px] rounded-full object-cover' src={user.profile_image} alt="" />}
                     </div>
                 <label className='px-4 py-1 text-sm border rounded-sm max-w-[200px] my-4 cursor-pointer' htmlFor="fileInput">Change profile picture</label>
                 <input accept="image/*" type="file" id="fileInput" onChange={handleImageChange} className="hidden" />

@@ -44,6 +44,10 @@ const userSchema = new Schema({
     bio: {
         type: String,
         
+    },
+    status: {
+        type: Boolean,
+        default: false
     }
 },{
     timestamps: true
@@ -84,11 +88,18 @@ userSchema.statics.login = async function(email, password) {
     }
 
     const user = await this.findOne({email})
+    
   
     if(!user){
         throw Error('Wrong email or password')
     }
     const match = await bcrypt.compare(password, user.password)
+    const stt = await this.findOneAndUpdate(user._id, {
+       status: true
+      },
+      { new: true }
+    )
+
 
     if(!match){
         throw Error('Incorrect password')

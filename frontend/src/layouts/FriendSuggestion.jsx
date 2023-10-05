@@ -29,8 +29,11 @@ const FriendSuggestion = () => {
                        
                         <Link to={`/profile/${user._id}`} key={user._id} className="flex justify-between my-2 rounded-sm cursor-pointer py-2 hover:bg-gray-100">
                             <div className="flex gap-2 items-center">
-                                {user.profile_image && (<img className="h-9 w-9 rounded-full" src={user.profile_image.url} alt={user.name} />)}
+                                <div className="relative">
+                                {user.status === true && (<div className="absolute bottom-0 right-1 bg-green-500 h-2 w-2 rounded-full"></div>)}
+                                {user.profile_image && (<img className="h-9 w-9 rounded-full object-cover" src={user.profile_image.url} alt={user.name} />)}
                                 {!user.profile_image && (<UserCircleIcon className="h-9 w-9 text-gray-500" />)}
+                                </div>
                                 <div>
                                 <div>{user.name}</div>
                                 <div className=" text-xs text-gray-500">@{user.username}</div>

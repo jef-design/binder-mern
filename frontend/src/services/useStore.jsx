@@ -13,13 +13,6 @@ const useStore = create((set) => ({
       return { user: userInfo };
     }),
 
-    setUpdateUser: (userInfo) =>
-    set(() => {
-      // Update user state and store in localStorage
-      localStorage.setItem('user', JSON.stringify(userInfo));
-      return { user: userInfo };
-    }),
-
   logOutUser: () =>
     set(() => {
       // Remove user data from localStorage and set user to null

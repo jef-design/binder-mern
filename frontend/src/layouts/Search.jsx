@@ -3,25 +3,25 @@ import { useQuery, useQueryClient } from '@tanstack/react-query'
 import axiosInstance from '../services/axiosInstance'
 import { Link } from 'react-router-dom'
 import { UserCircleIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import useDebounce from '../hooks/useDebounce';
 
 const Search = () => {
     const [term, setTerm] = useState('')
     const queryClient = useQueryClient()
+    const debounceValue = useDebounce(term)
+
     const {data: dataSearch, isLoading} = useQuery({
-        queryKey: ['search', term],
+        queryKey: ['search', debounceValue],
         queryFn: fetchSearch,
-            enabled: term !== '', // Fetch data only when searchTerm is not empty
-      
-        
-  
+            enabled: debounceValue !== '', // Fetch data only when searchTerm is not empty
     })
 
     async function fetchSearch(){
-       return axiosInstance.get(`/api/binder/search?term=${term}`).then(res => res.data)
+       return axiosInstance.get(`/api/binder/search?term=${debounceValue}`).then(res => res.data)
     }
     const searchHandler = (e) => {
         setTerm(e.target.value)
-        queryClient.invalidateQueries(['search', term])
+        queryClient.invalidateQueries(['search', debounceValue])
         // if( term && term.length > 0 && term !== ''){
         //     queryClient.invalidateQueries(['search', term])
         //     refetch()
