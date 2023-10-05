@@ -36,7 +36,8 @@ const EditProfileModal = ({currentUserLogId,status,modalCloseHandler}) => {
         onSuccess: (formData) => {
             queryClient.invalidateQueries("userinfo", currentUserLogId)
             modalCloseHandler(false)
-            setLogInUser(formData)
+            setLogInUser({...formData, status: true})
+            console.log({...formData, status: true})
             console.log(formData)
         }
     })

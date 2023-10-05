@@ -29,6 +29,7 @@ const ProfileDetails = () => {
         queryKey: ["userinfo", params.userID],
         queryFn: () => axiosInstance.get(`/api/binder/user/${params.userID}`).then(res => res.data),
     });
+    console.log(userDetails)
     // FOLLOW USER
     const {mutate, isLoading: followLoader} = useMutation({
         mutationFn: followerID => axiosInstance.patch(`/api/binder/follow/${params.userID}`, followerID).then(res => res.data),

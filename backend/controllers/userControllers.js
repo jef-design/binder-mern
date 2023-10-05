@@ -117,7 +117,7 @@ const getUserDetails = async (req, res) => {
   const _id = req.params.id;
   const user = await User.find({ _id }).populate({
     path: 'follower.userID',
-    select: ['name', 'profile_image.url', 'username'],
+    select: ['name', 'profile_image.url', 'username', 'status'],
   })
   res.status(200).json({ message: 'Get user', user });
 };
@@ -136,6 +136,7 @@ const upDateUser = async (req, res) => {
         name: name,
         email: email,
         bio: bio,
+        status: true
       },
       { new: true }
     );

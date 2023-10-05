@@ -18,7 +18,7 @@ const FriendsScreeen = () => {
     });
     const userInfo = userDetails?.user[0]
     const {follower} = userInfo || {}
-    console.log(follower)
+
   return (
     <main className=" mt-3 w-full">
       <AsideMenu />
@@ -28,11 +28,14 @@ const FriendsScreeen = () => {
             <span>All</span>
             {follower?.map((userIf, index) => {
                 return(
-                    <div>
-                         <Link to={`/profile/${userIf.userID._id}`} key={index} className="flex justify-between my-2 rounded-sm cursor-pointer py-2 hover:bg-gray-100">
+                    <div key={index}>
+                         <Link to={`/profile/${userIf.userID._id}`} className="flex justify-between my-2 rounded-sm cursor-pointer py-2 hover:bg-gray-100">
                             <div className="flex gap-2 items-center">
+                            <div className="relative">
+                            {userIf.userID.status === true && (<div className="absolute bottom-0 right-0 bg-green-500 h-2 w-2 rounded-full"></div>)}
                                 {userIf.userID.profile_image && (<img className="h-9 w-9 rounded-full" src={userIf.userID.profile_image.url} alt={userIf.userID.name} />)}
                                 {!userIf.userID.profile_image && (<UserCircleIcon className="h-9 w-9 text-gray-500" />)}
+                            </div>
                                 <div>
                                 <div>{userIf.userID.name}</div>
                                 <div className=" text-xs text-gray-500">@{userIf.userID.username}</div>

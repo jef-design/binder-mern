@@ -39,7 +39,7 @@ const Header = () => {
                 />
               )}
               {!user.profile_image && (
-                <UserCircleIcon className="h-7 w-7 text-gray-500" />
+                <UserCircleIcon className="h-8 w-8 text-gray-500" />
               )}
              </div>
 
