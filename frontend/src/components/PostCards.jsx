@@ -103,7 +103,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
       };
     
     return (
-        <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md mb-4 shadow-md">
+        <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md mb-4 shadow-md dark:bg-dark-main dark:text-white duration-300 ease-in-out">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2">
                     {!profileImage?.url && <UserCircleIcon className="h-9 w-9 text-gray-500" />}
@@ -121,7 +121,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                 <AlertDialog dialogMessage={`Are you sure you want to delete this post?`} deleteHandler={deleteHandler} open={open} handleClose={handleClose} />
                 {user._id === userID?._id && (
                     <div className=" cursor-pointer" onClick={handleClickOpen}>
-                        <TrashIcon className="h-6 w-6 text-gray-500" />
+                        {/* <TrashIcon className="h-6 w-6 text-gray-500" /> */}
                         <EllipsisHorizontalIcon className="h-6 w-6 text-gray-500" />
                     </div>
                 )}
@@ -194,14 +194,14 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     </div>
                 )}
             </div>
-            <div className="flex gap-4 border-t pt-2">
+            <div className="flex gap-4 border-t pt-2 dark:border-[#333030dd]">
             {!userProfile && <UserCircleIcon className="h-6 w-6 text-gray-500" />}
                     {userProfile && (<img className="h-6 w-6 rounded-full object-cover" src={userProfile} alt="" /> )}
         
               <form className=" w-full" onSubmit={sendComment}>
               <input
                     value={comment}
-                    className="outline-none text-sm w-full"
+                    className="outline-none text-sm px-1 py-2 w-full dark:bg-[#3a3b3c] dark:border-none"
                     type="text"
                     placeholder={`Add a comment for ${name}...`}
                     onChange={(e) => {setComment(e.target.value)}}

@@ -49,11 +49,11 @@ const PostCreator = () => {
 
     return (
         <div className="">
-            <div className=" bg-white rounded-md px-4 py-4 shadow-md sticky left-0 bottom-0">
+            <div className=" bg-white rounded-md px-4 py-4 shadow-md sticky left-0 bottom-0 dark:bg-dark-main dark:text-white duration-300 ease-in-out">
                 <span className=" font-bold">Create Post</span>
                 <form onSubmit={submitHandler}>
-                    <div className="my-4 flex items-center border rounded-3xl overflow-hidden px-1">
-                        <div>
+                    <div className="my-4 dark:bg-[#3a3b3c] flex items-center border rounded-3xl overflow-hidden dark:border-none">
+                        <div className="">
                             {user.profile_image && (<img className="h-9 w-9 rounded-full object-contain" src={user?.profile_image} alt="sd" />)}
                             {!user.profile_image && (<UserCircleIcon className="h-6 w-6 rounded-full text-gray-500" />)}
                         </div>
@@ -62,7 +62,7 @@ const PostCreator = () => {
                             onChange={e => {
                                 setCaption(e.target.value);
                             }}
-                            className="px-4 py-2 outline-none w-full"
+                            className="px-4 py-2 outline-none w-full dark:bg-[#3a3b3c] "
                             type="text"
                             placeholder="Share your stories"
                         />

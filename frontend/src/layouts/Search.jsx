@@ -32,10 +32,10 @@ const Search = () => {
     }
 
   return (
-    <div className=' bg-white p-2 rounded-md shadow-sm mb-5'>
-        <div className=' border w-full flex items-center px-1 rounded-2xl bg-gray-100'>
+    <div className=' bg-white p-2 rounded-md shadow-sm mb-5 dark:bg-dark-main dark:text-white duration-300 ease-in-out'>
+        <div className=' border w-full flex items-center px-1 overflow-hidden rounded-2xl bg-gray-100 dark:bg-[#3a3b3c] dark:border-none'>
         <MagnifyingGlassIcon className="h-6 w-6 text-gray-700" />
-            <input value={term} className='px-3 py-1 bg-transparent text-gray-700 outline-none' type="text" onChange={searchHandler} placeholder='Search Binder' />
+            <input value={term} className='px-3 py-1 bg-transparent text-gray-700 outline-none w-full dark:bg-[#3a3b3c]' type="text" onChange={searchHandler} placeholder='Search Binder' />
         </div>
         {dataSearch?.length == 0 && (<div className=' mt-2'>No results found for "{term}"</div>)}
         <div className=' p-1 mt-3 z-10'>

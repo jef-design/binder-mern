@@ -28,7 +28,8 @@ const PostCard = () => {
     } = useQuery({
         queryKey: ["getpost"],
         queryFn: () => axiosInstance.get("/api/binder/post").then(res => res.data),
-        staleTime: 2000
+        staleTime: 2000,
+        refetchInterval: 6000
         
     });
 

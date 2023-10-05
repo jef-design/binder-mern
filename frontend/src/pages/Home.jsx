@@ -10,7 +10,7 @@ const Home = () => {
     return (
         <main className='relative mt-3 w-full xl:grid-cols-2 sm:grid-cols-1'>
             <AsideMenu/>
-            <div className="max-w-[650px] col-span-2 w-full mx-auto">
+            <div className="max-w-[750px] col-span-2 w-full mx-auto">
             {/* col-span-1 col-start-2 col-end-3 */}
                 <PostCreator />
                 <PostCard />

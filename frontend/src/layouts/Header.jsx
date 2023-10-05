@@ -1,7 +1,7 @@
 import React from "react";
 import {
   UserCircleIcon,
-  ArrowRightOnRectangleIcon,
+  ArrowRightOnRectangleIcon, MoonIcon, SunIcon
 } from "@heroicons/react/24/solid";
 import useStore from "../services/useStore";
 import axios from "axios";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 import axiosInstance from "../services/axiosInstance";
 
-const Header = () => {
+const Header = ({toggleTheme,themes}) => {
   const { user, logOutUser } = useStore();
 
   const userId = {_id: user?._id}
@@ -19,13 +19,18 @@ const Header = () => {
     logOutUser();
   };
   return (
-    <div className="flex px-4 py-2 justify-between border bg-white sticky top-0 left-0 right-0 z-10">
+    <div className="flex px-4 py-2 justify-between bg-white sticky top-0 left-0 right-0 z-10 dark:bg-dark-main dark:text-white duration-300 ease-in-out">
       <div>
         <Link to={"/"} className=" font-bold text-lg">
           Binder.
         </Link>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 items-center">
+        <div className=" cursor-pointer" onClick={toggleTheme}>
+        {themes === 'light' && (<MoonIcon className="h-6 w-6 text-gray-500" />)}
+        {themes === 'dark' && ( <SunIcon className="h-6 w-6 text-gray-500" />)}
+       
+        </div>
         {user && (
           <div className="flex gap-4 items-center text-sm">
             <div className="flex gap-1 items-center">

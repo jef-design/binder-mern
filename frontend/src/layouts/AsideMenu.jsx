@@ -46,15 +46,16 @@ const AsideMenu = () => {
   ];
 
   return (
-    <div className=" bg-white fixed left-0 top-0 mt-10 px-4 pt-5 max-w-[350px] h-full w-full xl:hidden ">
+    <div className="bg-white fixed left-0 top-0 mt-10 px-4 pt-5 max-w-[350px] h-full w-full xl:hidden 
+    dark:bg-dark-main dark:text-white duration-300 ease-in-out">
       <div className="flex flex-col gap-6">
         {links.map((link, i) => {
           return (
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "font-[700] bg-black text-white flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 hover:text-black"
-                  : "font-[700] flex items-center  gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100"
+                  ? "font-[700] bg-black text-white flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 hover:text-black dark:hover:bg-[#242526]"
+                  : "font-[700] flex items-center  gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-[#242526]"
               }
               to={link.to}
               key={i}

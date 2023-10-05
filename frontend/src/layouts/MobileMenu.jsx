@@ -15,7 +15,7 @@ const MobileMenu = () => {
         {
           pathname: "Home",
           to: "/",
-          icon: <HomeIcon className="h-6 w-6 text-gray-950" />,
+          icon: <HomeIcon className="h-6 w-6 text-gray-950 dark:bg-dark-main" />,
           id: 1,
         },
         {
@@ -45,14 +45,14 @@ const MobileMenu = () => {
       ];
     
   return (
-    <div className='fixed bottom-0 left-0 right-0 bg-white hidden xl:block'>
+    <div className='fixed bottom-0 left-0 right-0 bg-white hidden xl:block dark:bg-dark-secondary'>
         <div className='grid grid-cols-5 gap-1 border-t drop-shadow-md'>
         {links.map((link, i) => {
           return (
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "font-[700] bg-gray-100 border-2 border-t-cyan-500  justify-center text-white flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 hover:text-black"
+                  ? "font-[700] bg-gray-100 border-2 border-t-cyan-500  justify-center text-white flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 hover:text-black dark:bg-dark-secondary"
                   : "font-[700] justify-center flex items-center  gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100"
               }
               to={link.to}

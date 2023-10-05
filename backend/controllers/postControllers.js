@@ -19,8 +19,11 @@ const createPost = async (req, res) => {
   }
 
   try {
-    const fileUri = getDataUri(file);
-    const result = await cloudinary.uploader.upload(fileUri.content, {
+    
+    // const fileUri = getDataUri(file);
+    const imageBase64 = file.buffer.toString('base64');
+   
+    const result = await cloudinary.uploader.upload(`data:image/jpeg;base64,${imageBase64}`, {
       folder: 'postimage',
       resource_type: 'auto',
     });
