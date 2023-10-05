@@ -94,12 +94,12 @@ userSchema.statics.login = async function(email, password) {
         throw Error('Wrong email or password')
     }
     const match = await bcrypt.compare(password, user.password)
-    const stt = await this.findOneAndUpdate(user._id, {
+    await this.findOneAndUpdate(user._id, {
        status: true
       },
       { new: true }
     )
-
+   
 
     if(!match){
         throw Error('Incorrect password')
