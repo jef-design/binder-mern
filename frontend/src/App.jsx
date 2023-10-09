@@ -25,24 +25,30 @@ function App() {
 
   const user = useStore((state) => state.user)
   const [themes, setTheme] = useState('light')
+  const localStorageTheme = localStorage.getItem('themeReact')
 
+  const themeValue = localStorageTheme ? localStorageTheme : themes
+  console.log(themeValue)
   useEffect(() => {
-    if(themes=== 'dark'){
+    localStorage.setItem('themeReact' , themes)
+    if(themeValue === 'dark'){
       document.documentElement.classList.add("dark")
+      
     }else{
       document.documentElement.classList.remove("dark")
     }
   
-  }, [themes])
+  }, [themes,themeValue])
   
   const toggleTheme = () => {
-    setTheme(themes === 'dark' ? 'light' : 'dark')
+    setTheme(themes === 'light' ? 'dark' : 'light')
+    localStorage.setItem('themeReact' , themes === 'light' ? 'dark' : 'light')
   }
 
   return (
     <div className=''>
      <BrowserRouter>
-        <Header toggleTheme={toggleTheme} themes={themes} />
+        <Header toggleTheme={toggleTheme} themes={themeValue} />
         <Routes>
           <Route path='/' element={user ? <Home/> : <Navigate to={'/login'} />} />
           <Route path='/profile/:userID' element={user ? <ProfileScreeen/> : <Navigate to={'/login'} />} />

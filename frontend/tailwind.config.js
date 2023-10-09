@@ -38,6 +38,9 @@ export default {
         // 'dark-main': '#121212',
         // 'dark-secondary': '#212124',
       },
+      colors: {
+        'dark-text': '#94a3b8'
+      }
     },
   },
   plugins: [],

@@ -31,7 +31,7 @@ const FriendsScreeen = () => {
             {follower?.map((userIf, index) => {
                 return(
                     <div key={index}>
-                         <Link to={`/profile/${userIf.userID._id}`} className="flex justify-between my-2 rounded-sm cursor-pointer py-2 hover:bg-gray-100">
+                         <Link to={`/profile/${userIf.userID._id}`} className="flex justify-between my-2 rounded-sm cursor-pointer py-2 hover:bg-gray-100 dark:hover:bg-[#242526]">
                             <div className="flex gap-2 items-center">
                             <div className="relative">
                             {userIf.userID.status === true && (<div className="absolute bottom-0 right-0 bg-green-500 h-2 w-2 rounded-full"></div>)}

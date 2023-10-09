@@ -15,10 +15,11 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
     const queryClient = useQueryClient();
     const [comment, setComment] = useState('')
     const [open, setOpen] = useState(false);
+    const [viewComment, setViewComment] = useState(-1);
     const [openModal, setOpenModal] = useState(false);
     const userProfile = user.profile_image
 
-    //delete handler
+    //* delete handler
     const {mutate} = useMutation({
         mutationKey: ["deletepost"],
         mutationFn: postID => axiosInstance.delete(`/api/binder/post/${postID}`).then(res => res.data),
@@ -32,7 +33,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
         mutate(postID);
     };
  
-    //like post
+    //* like post
     const {mutate: mutateLike} = useMutation({
         mutationKey: ["likepost"],
         mutationFn: likerID => axiosInstance.patch(`/api/binder/post/like/${postID}`, likerID).then(res => res.data),
@@ -47,7 +48,8 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
         mutateLike(likerID);
     };
 
-    // unlike handler
+    // * com unlike handler
+
     const {mutate: mutateUnLike} = useMutation({
         mutationKey: ["likepost"],
         mutationFn: likerID => axiosInstance.patch(`/api/binder/post/unlike/${postID}`, likerID).then(res => res.data),
@@ -62,7 +64,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
     };
     const filteredLiked = likes.filter(like => like.userID == user._id);
 
-    //comment handler 
+    //* comment handler 
     const {mutate: mutateComment, isLoading} = useMutation({
         mutationKey: ["commentpost"],
         mutationFn: commenterID => axiosInstance.patch(`/api/binder/post/comment/${postID}`, commenterID).then(res => res.data),
@@ -78,7 +80,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
         mutateComment(commenterID);
     }
 
-      //delete comment handler
+      //* delete comment handler
      
       const {mutate: deleteCommentMutate} = useMutation({
         mutationKey: ["deletecomment"],
@@ -103,14 +105,14 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
       };
     
     return (
-        <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md mb-4 shadow-md dark:bg-dark-main dark:text-white duration-300 ease-in-out">
+        <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md mb-4 shadow-md dark:text-dark-text dark:bg-dark-main duration-300 ease-in-out">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2">
                     {!profileImage?.url && <UserCircleIcon className="h-9 w-9 text-gray-500" />}
                     {profileImage && (<img className="h-9 w-9 rounded-full object-cover" src={profileImage?.url} alt="" /> )}
                     <div>
                     <Link to={`/profile/${userID?._id}`}>
-                        <span className=" font-[500]">{name}</span>
+                        <span className=" font-[500] dark:`gntext-slate-300">{name}</span>
                     </Link>
                         <div className=" text-xs text-gray-600">
                         <ReactTimeAgo date={Date.parse(date)} locale="en-US"/>
@@ -126,7 +128,7 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                     </div>
                 )}
             </div>
-            <span className="font-[400] text-sm">{caption}</span>
+            <span className="font-[400] text-sm leading-6">{caption}</span>
             <div className="h-auto -mx-4">
                 <ImageModal imageUrl={image?.url} modalOpen={openModal} handleCloseModal={handleCloseModal}  />
                 {image && image?.url?.endsWith(".jpg") && (
@@ -151,13 +153,16 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                 </div>
                 <div className="flex items-center gap-1">
                     <ChatBubbleLeftIcon className="h-8 w-8 text-gray-500" />{" "}
-               
                     <span className=" text-xs">{comments.length} {comments.length <= 1 ? 'comment' : 'comments'}</span>
                 </div>
             </div>
-            <div className="px-3 mt-1 border-t pt-3 ">
 
-                {comments.map((com,i) => {
+            {/* SHOW COMMENT */}
+
+            <div className="px-3 mt-1 border-t pt-3 ">
+                <span onClick={()=> {setViewComment( viewComment === 0 ? -1 : 0)}} className=" text-sm mb-2 inline-block cursor-pointer">
+                View {viewComment === -1 ? ` all ${comments.length} comments` : ' less comments'}</span>
+                {comments.slice(viewComment).map((com,i) => {
                     return(
                         <div key={i} className="flex gap-3 items-center mb-3">
                             {!com.userID?.profile_image?.url && <UserCircleIcon className="h-7 w-7 text-gray-500" />}
@@ -179,6 +184,9 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
                         </div>
                     )
                 })}
+                
+                {/*   LODING COMMENT  */}
+
                 {isLoading && (
                     <div className="flex justify-center">                   
                     <Comment

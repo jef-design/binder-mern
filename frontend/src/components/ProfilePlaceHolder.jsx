@@ -2,7 +2,7 @@ import React from "react";
 import SkeletonPlaceholder from "./SkeletonPlaceholder";
 const ProfilePlaceHolder = () => {
     return (
-        <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md">
+        <div className="flex flex-col gap-5 bg-white px-4 py-2 rounded-md dark:bg-dark-main">
             <div className="flex gap-2 justify-between items-center">
                 <SkeletonPlaceholder variant={"rectangular"} width={"35%"} height={10} animation="pulse" />
                 <SkeletonPlaceholder variant={"circular"} width={90} height={90} animation="pulse" />

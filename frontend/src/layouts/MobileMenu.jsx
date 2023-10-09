@@ -15,31 +15,31 @@ const MobileMenu = () => {
         {
           pathname: "Home",
           to: "/",
-          icon: <HomeIcon className="h-6 w-6 text-gray-950  dark:text-dark-main" />,
+          icon: <HomeIcon className="h-6 w-6 text-gray-950  dark:text-white" />,
           id: 1,
         },
         {
           pathname: "Profile",
           to: `/profile/${user?._id}`,
-          icon: <UserIcon className="h-6 w-6 text-gray-950 dark:text-dark-main" />,
+          icon: <UserIcon className="h-6 w-6 text-gray-950 dark:text-white" />,
           id: 2,
         },
         {
           pathname: "Notifications",
           to: "/notifications",
-          icon: <BellAlertIcon className="h-6 w-6 text-gray-950 dark:text-dark-main" />,
+          icon: <BellAlertIcon className="h-6 w-6 text-gray-950 dark:text-white" />,
           id: 3,
         },
         {
           pathname: "Friends",
           to: "/friends",
-          icon: <UserGroupIcon className="h-6 w-6 text-gray-950 dark:text-dark-main" />,
+          icon: <UserGroupIcon className="h-6 w-6 text-gray-950 dark:text-white" />,
           id: 4,
         },
         {
           pathname: "Settings",
           to: "/settings",
-          icon: <Cog6ToothIcon className="h-6 w-6 text-gray-950 dark:text-dark-main" />,
+          icon: <Cog6ToothIcon className="h-6 w-6 text-gray-950 dark:text-white" />,
           id: 5,
         },
       ];
@@ -52,8 +52,8 @@ const MobileMenu = () => {
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "font-[700] bg-gray-100 border-2 border-t-cyan-500  justify-center text-white flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 hover:text-black  dark:bg-dark-secondary"
-                  : "font-[700] justify-center flex items-center  gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100"
+                  ? "font-[700] bg-gray-100 border-2 border-t-cyan-500  justify-center text-white flex items-center gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 c dark:bg-dark-secondary"
+                  : "font-[700] justify-center flex items-center  gap-3 w-full py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-secondary"
               }
               to={link.to}
               key={i}

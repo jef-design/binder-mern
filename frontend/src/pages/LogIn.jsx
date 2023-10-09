@@ -5,11 +5,15 @@ import { useMutation } from '@tanstack/react-query'
 import useStore from '../services/useStore'
 import {TailSpin} from "react-loader-spinner";
 import axiosInstance from '../services/axiosInstance'
+import useDebounce from '../hooks/useDebounce';
 
 const LogIn = () => {
-    
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [credentials, setCredentials] = useState({
+        email: '', password: ''
+    })
+    const debouncedEmail = useDebounce(credentials.email);
+    const debouncedPassword = useDebounce(credentials.password);
+
     const [visible, setVisible] = useState('password')
     const [error, setError] = useState('')
     const navigate = useNavigate()
@@ -37,24 +41,32 @@ const LogIn = () => {
     })
     const submitHandler = (e) => {
         e.preventDefault()
-        const User = {email,password}
+        const User = {email: debouncedEmail, password: debouncedPassword}
         mutate(User)
     }
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        console.log(event)
+        setCredentials({
+          ...credentials,
+          [name]: value,
+        });
+      };
   return (
     <div className=' max-w-[458px] w-full mt-9 mx-auto border rounded-md p-5 bg-white'>
         <div>
             <h3 className=' text-center font-bold text-lg'>Sign in to Binder</h3>
-            {/* <p>Connect to your binder and share thoughts</p> */}
+       
         </div>
         <form onSubmit={submitHandler}>
             <div className='flex flex-col'>
                 <label htmlFor="email">Email</label>
-                <input className='border p-2 my-2' onChange={(e) => {setEmail(e.target.value)}} type="text" />
+                <input  name="email" className='border p-2 my-2' value={credentials.email} onChange={handleChange} type="text" />
             </div>
             <div className='flex flex-col'>
                 <label htmlFor="password">Password</label>
                 <div  className='border my-2 flex items-center'>
-                <input className='p-2 w-full outline-none' onChange={(e) => {setPassword(e.target.value)}} type={visible} />
+                <input  name="password" className='p-2 w-full outline-none' value={credentials.password} onChange={handleChange} type={visible} />
                  {visible === 'password' && (<EyeSlashIcon onClick={()=> setVisible('text')} className="h-6 w-6 text-gray-500 mr-1" />)}
                  {visible === 'text' && <EyeIcon onClick={()=> setVisible('password')} className="h-6 w-6 text-gray-500 mr-1" />}
                 </div>
