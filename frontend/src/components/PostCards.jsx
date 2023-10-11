@@ -12,6 +12,7 @@ import ImageModal from './ImageModal'
 
 const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comments,userLogged,date}) => {
     const {user} = useStore();
+    console.log(comments)
     const queryClient = useQueryClient();
     const [comment, setComment] = useState('')
     const [open, setOpen] = useState(false);
@@ -160,8 +161,8 @@ const PostCards = ({postID,name, userID,profileImage, caption, image, likes,comm
             {/* SHOW COMMENT */}
 
             <div className="px-3 mt-1 border-t pt-3 ">
-                <span onClick={()=> {setViewComment( viewComment === 0 ? -1 : 0)}} className=" text-sm mb-2 inline-block cursor-pointer">
-                View {viewComment === -1 ? ` all ${comments.length} comments` : ' less comments'}</span>
+                {comments.length >=1 && (<span onClick={()=> {setViewComment( viewComment === 0 ? -1 : 0)}} className=" text-sm mb-2 inline-block cursor-pointer">
+                View {viewComment === -1 ? ` all ${comments.length} comments` : ' less comments'}</span>)}
                 {comments.slice(viewComment).map((com,i) => {
                     return(
                         <div key={i} className="flex gap-3 items-center mb-3">
